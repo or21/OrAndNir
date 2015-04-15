@@ -5,25 +5,25 @@
     tools:context="com.main.divvyapp.Filter" >
 
     <!-- Single List Item Design -->
-	
-	<ImageView
+
+    <ImageView
         android:id="@+id/cat_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
         android:layout_centerVertical="true"
+        android:background="#ffffff"
         android:contentDescription="@null"
         android:gravity="center_vertical" />
-	
+
     <TextView
         android:id="@+id/category_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="40dp"
         android:layout_marginStart="40dp"
         android:background="#ececed"
-        android:layout_centerVertical="true"
+        android:fontFamily="sans-serif"
         android:padding="10dip"
         android:textColor="#898989"
         android:textSize="18sp"

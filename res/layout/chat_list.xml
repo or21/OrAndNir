@@ -2,35 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" 
+    android:orientation="horizontal"
     android:paddingBottom="10dp"
-    android:weightSum="100">
-    
-    <TextView 
+    android:weightSum="100" >
+
+    <TextView
         android:id="@+id/name"
+        style="@style/AppBaseTheme"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
         android:layout_weight="20"
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-        android:gravity="center"
         android:fontFamily="sans-serif"
-        style="@style/AppBaseTheme"/>
-    
-    <TextView 
+        android:gravity="center" />
+
+    <TextView
         android:id="@+id/spacing"
+        style="@style/AppBaseTheme"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
         android:layout_weight="10"
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-        android:gravity="center"
         android:fontFamily="sans-serif"
-        style="@style/AppBaseTheme"/>
-    
-    <TextView 
+        android:gravity="center" />
+
+    <TextView
         android:id="@+id/message"
-        android:layout_weight="70"
+        style="@style/AppBaseTheme"
         android:layout_width="0px"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_weight="70"
         android:fontFamily="sans-serif"
-        style="@style/AppBaseTheme"/>
-   
+        android:gravity="center" />
+
 </LinearLayout>

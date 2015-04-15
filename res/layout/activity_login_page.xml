@@ -15,8 +15,8 @@
         android:layout_alignBottom="@+id/username"
         android:layout_alignLeft="@+id/textView2"
         android:layout_alignStart="@+id/textView2"
-        android:text="@string/username"
         android:fontFamily="sans-serif"
+        android:text="@string/username"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -31,17 +31,17 @@
         android:ems="10"
         android:fontFamily="sans-serif"
         android:inputType="text" />
-    
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/phone"
         android:layout_alignBottom="@+id/phone"
-        android:text="@string/phone"
         android:fontFamily="sans-serif"
+        android:text="@string/phone"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-    
+
     <EditText
         android:id="@+id/phone"
         android:layout_width="wrap_content"
@@ -60,8 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/email"
         android:layout_alignBottom="@+id/email"
-        android:text="@string/email"
         android:fontFamily="sans-serif"
+        android:text="@string/email"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
@@ -83,9 +83,9 @@
         android:id="@+id/login_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/username"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/username"
         android:src="@drawable/divvylogo" />
 
     <Button
@@ -95,9 +95,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="56dp"
-        android:fontFamily="sans-serif"
-        android:textColor="#ffffff"
         android:background="@drawable/layout_bg_button"
-        android:text="@string/Login" />
+        android:fontFamily="sans-serif"
+        android:text="@string/Login"
+        android:textColor="#ffffff" />
 
 </RelativeLayout>

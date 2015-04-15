@@ -5,7 +5,7 @@
     android:background="#ffffff"
     android:weightSum="100"
     tools:context="${relativePackage}.${activityClass}" >
-    
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,8 +18,8 @@
             android:layout_below="@+id/deadLine"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="34dp"
-            android:fontFamily="sans-serif"
             android:background="@drawable/layout_bg_button"
+            android:fontFamily="sans-serif"
             android:text="@string/claimDeal"
             android:textColor="#ffffff" />
 
@@ -52,21 +52,20 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="10dp"
-            android:fontFamily="sans-serif"
-            android:background="#a9aaab" />
-
+            android:background="#a9aaab"
+            android:fontFamily="sans-serif" />
     </RelativeLayout>
 
     <ListView
         android:id="@+id/dealList"
         android:layout_width="wrap_content"
         android:layout_height="130dp"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:paddingTop="10dp"
         android:layout_centerVertical="true"
-        android:layout_marginTop="5dp" >
+        android:layout_marginTop="5dp"
+        android:paddingTop="10dp" >
     </ListView>
 
 </RelativeLayout>
