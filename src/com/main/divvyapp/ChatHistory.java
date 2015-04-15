@@ -1,6 +1,7 @@
 package com.main.divvyapp;
-
+// Checking
 import helpeMethods.ChatAdapter;
+
 import helpeMethods.ChatItem;
 
 import java.util.ArrayList;
