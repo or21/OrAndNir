@@ -26,9 +26,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -81,30 +78,6 @@ public class ChatHistory extends Activity implements ServerAsyncParent{
 		}
 	}
 	
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    // Inflate the menu items for use in the action bar
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.deals_page, menu);
-	    return super.onCreateOptionsMenu(menu);
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle presses on the action bar items
-	    switch (item.getItemId()) {
-	        case R.id.previous_chats:
-	            openSettings();
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
-	}
-	
-	private void openSettings() {
-		Intent intent = new Intent(context, ChatHistory.class);
-		startActivity(intent);	
-	}
-
 	public void getDataFromServer(int id) {
 		cummunicator = new ClietSideCommunicator();
 		cummunicator.connectChatsTable(this, uid);

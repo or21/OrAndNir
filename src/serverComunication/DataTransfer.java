@@ -18,8 +18,12 @@ import org.json.JSONObject;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 public class DataTransfer extends AsyncTask<String, Void, Boolean> {
@@ -120,9 +124,11 @@ public class DataTransfer extends AsyncTask<String, Void, Boolean> {
 		if (isRequestSucceeded) {
 			parentActivity.doOnPostExecute(jObj);
 		} else {
-			CharSequence text = "Send Data Faild!";
+			CharSequence text = "No data!";
 			int duration = Toast.LENGTH_SHORT;
 			Toast toast = Toast.makeText((Context) parentActivity, text, duration);
+			View view = toast.getView();
+			view.setBackground(new ColorDrawable(Color.parseColor("#71bd90")));
 			toast.show();
 		}
 	}

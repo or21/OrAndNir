@@ -10,7 +10,7 @@
     <string name="skip">Skip</string>
     <string name="timePick">Set Mall Exit Time </string>
     <string name="timeLeft">This customer will leave the mall in: </string>
-    <string name="username">Username:</string>
+    <string name="username">User Name:</string>
     <string name="email">Email:</string>
     <string name="phone">Phone:</string>
     <string name="claimDeal">Submit Request</string>
