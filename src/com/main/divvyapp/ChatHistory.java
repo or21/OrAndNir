@@ -32,7 +32,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
-
+// Or king
 public class ChatHistory extends Activity implements ServerAsyncParent{
 	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	private ListView mainList;
