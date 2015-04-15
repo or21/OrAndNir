@@ -1,6 +1,7 @@
 package com.main.divvyapp;
-// Checking
+
 import helpeMethods.ChatAdapter;
+
 
 import helpeMethods.ChatItem;
 
@@ -33,6 +34,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+
 public class ChatHistory extends Activity implements ServerAsyncParent{
 	private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	private ListView mainList;
@@ -56,6 +58,7 @@ public class ChatHistory extends Activity implements ServerAsyncParent{
 		pref = getSharedPreferences(LoginPage.class.getSimpleName(), MODE_PRIVATE);
 		uid = pref.getString("uid", "error");
 		myName = pref.getString("myName", "error");
+		String s;
 		
 		// need to change to what happened when device is not supported
 		if (!checkPlayServices()) {
