@@ -58,6 +58,7 @@ public class ChatHistory extends Activity implements ServerAsyncParent{
 		pref = getSharedPreferences(LoginPage.class.getSimpleName(), MODE_PRIVATE);
 		uid = pref.getString("uid", "error");
 		myName = pref.getString("myName", "error");
+		String s;
 		
 		// need to change to what happened when device is not supported
 		if (!checkPlayServices()) {
