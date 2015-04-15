@@ -33,6 +33,7 @@
     <string name="title_activity_chat_history">ChatHistory</string>
     <string name="previous_chats">Previous Chats</string>
     <string name="other_user">Other User</string>
+    <string name="date">Date</string>
     <string name="deal_description">Deal Description</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
 

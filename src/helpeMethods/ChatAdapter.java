@@ -16,6 +16,7 @@ public class ChatAdapter extends ArrayAdapter<ChatItem> {
 	
     private static class ViewHolder {
         private ListView itemView;
+        TextView date;
         TextView otherUser;
         TextView dealDescription;
 
@@ -39,6 +40,7 @@ public class ChatAdapter extends ArrayAdapter<ChatItem> {
 
             viewHolder = new ViewHolder();
             
+            viewHolder.date = (TextView) convertView.findViewById(R.id.date);
             viewHolder.otherUser = (TextView) convertView.findViewById(R.id.other_user);
             viewHolder.dealDescription = (TextView) convertView.findViewById(R.id.dealdescription);
             
@@ -46,6 +48,7 @@ public class ChatAdapter extends ArrayAdapter<ChatItem> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+    	viewHolder.date.setText(item.getDate());
         viewHolder.otherUser.setText(item.getOtherUser());
         viewHolder.dealDescription.setText(item.getDealdescription());
 

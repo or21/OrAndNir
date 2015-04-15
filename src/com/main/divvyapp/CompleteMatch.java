@@ -27,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CompleteMatch extends Activity implements ServerAsyncParent {
 
@@ -119,7 +120,14 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 				
 				@Override
 				public void onClick(View v) {
-					sendUpadte(v);
+					if (claimedBy.equals(uid)) {
+						Toast toast = Toast.makeText(context, "You can't complete deal with yourself" , Toast.LENGTH_LONG);
+						View view = toast.getView();
+						view.setBackground(new ColorDrawable(Color.parseColor("#71bd90")));
+						toast.show();
+					} else {
+						sendUpadte(v);
+					}
 				}
 			});
 		}

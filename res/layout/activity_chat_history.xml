@@ -20,14 +20,19 @@
         <TextView
             android:layout_width="0px"
             android:layout_height="30dp"
+            android:layout_weight="30"
             android:fontFamily="sans-serif"
-            android:layout_weight="20" />
+            android:gravity="center_horizontal"
+            android:text="@string/date"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="0px"
             android:layout_height="30dp"
-            android:layout_weight="40"
+            android:layout_weight="30"
             android:fontFamily="sans-serif"
+            android:gravity="center_horizontal"
             android:text="@string/other_user"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -35,21 +40,31 @@
         <TextView
             android:layout_width="0px"
             android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
             android:layout_weight="40"
             android:fontFamily="sans-serif"
+            android:gravity="center_horizontal"
             android:text="@string/deal_description"
             android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
+    
+    <TextView
+            android:id="@+id/seperator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/linearLayout1"
+            android:fontFamily="sans-serif"
+            android:background="#a9aaab" />
 
     <ListView
         android:id="@+id/chats_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout1"
+        android:layout_below="@+id/seperator"
         android:cacheColorHint="#00000000"
-        android:divider="@null"
-        android:dividerHeight="0dp"
+        android:divider="#bdbebf"
+        android:dividerHeight="0.1dp"
         android:listSelector="#00000000"
         android:orientation="vertical"
         android:textColor="#00ff00" >

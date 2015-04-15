@@ -7,13 +7,15 @@ public class ChatItem {
 	private String otherUser;
 	private String dealid;
 	private String dealdescription;
+	private String date;
 	
-	public ChatItem(String chatid, String myName, String otherUser, String dealid, String dealdescription) {
+	public ChatItem(String chatid, String myName, String otherUser, String dealid, String dealdescription, String date) {
 		this.chatid = chatid;
 		this.myName = myName;
 		this.otherUser = otherUser;
 		this.dealid = dealid;
 		this.dealdescription = dealdescription;
+		this.date = date;
 	}
 
 	public String getChatid() {
@@ -54,6 +56,14 @@ public class ChatItem {
 
 	public void setDealdescription(String dealdescription) {
 		this.dealdescription = dealdescription;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 	
 }

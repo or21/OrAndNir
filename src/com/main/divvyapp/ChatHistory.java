@@ -91,10 +91,10 @@ public class ChatHistory extends Activity implements ServerAsyncParent{
 	        for(int i = 0; i <  chats.length(); i++){
 	            JSONObject row = chats.getJSONObject(i);
 	            if (myName.equals(row.getString("user1"))) {
-	            	fillMaps.add(new ChatItem(row.getString("chatid"), row.getString("user1"), row.getString("user2"), row.getString("dealid"), row.getString("dealdescription")) );
+	            	fillMaps.add(new ChatItem(row.getString("chatid"), row.getString("user1"), row.getString("user2"), row.getString("dealid"), row.getString("dealdescription"), row.getString("date")));
 	            }
 	            else {
-	            	fillMaps.add(new ChatItem(row.getString("chatid"), row.getString("user2"), row.getString("user1"), row.getString("dealid"), row.getString("dealdescription")) );
+	            	fillMaps.add(new ChatItem(row.getString("chatid"), row.getString("user2"), row.getString("user1"), row.getString("dealid"), row.getString("dealdescription"), row.getString("date")));
 	            }
 	            
 	        }
