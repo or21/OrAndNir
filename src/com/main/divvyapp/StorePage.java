@@ -104,7 +104,8 @@ public class StorePage extends Activity implements ServerAsyncParent{
 	}
 	
 	private boolean findMyCity(){
-		Geocoder gcd = new Geocoder(context, Locale.getDefault().ENGLISH);
+		Locale.getDefault();
+		Geocoder gcd = new Geocoder(context, Locale.ENGLISH);
 		double lat = myLocation.getLatitude();
 		double lng = myLocation.getLongitude();
 		List<Address> addresses = null;
