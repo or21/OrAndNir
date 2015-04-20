@@ -3,11 +3,20 @@ package com.main.divvyapp;
 import helpeMethods.DealObj;
 import helpeMethods.ListDealsAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationServices;
 
 import serverComunication.ClietSideCommunicator;
 import serverComunication.ServerAsyncParent;
@@ -18,6 +27,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +37,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.location.*;
 
 public class StorePage extends Activity implements ServerAsyncParent{
 
@@ -36,7 +48,12 @@ public class StorePage extends Activity implements ServerAsyncParent{
 	Context context;
 	SharedPreferences pref;
 	ClietSideCommunicator cummunicator;
+	LocationManager mLocationManager;
+	Location myLocation;
+	String city;
 	
+	// Turn on location based filter
+	static final boolean locationFlag = true;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +64,18 @@ public class StorePage extends Activity implements ServerAsyncParent{
 		ActionBar bar = getActionBar();
 		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#71bd90")));
 		bar.setTitle("");
+		context = getApplicationContext();
+		
+		// Location
+		myLocation = getLastKnownLocation();
+		if (findMyCity() == false) {
+			city = null;
+		}
 		
 		pref = getSharedPreferences(LoginPage.class.getSimpleName(),
 				MODE_PRIVATE);
 		filter = getIntent().getExtras().getString("filter");
-		// fillMapsArr = getIntent().getExtras().getStringArray("fillMapsArr");
-		context = getApplicationContext();
+		
 
 		// initialize the main list of deals
 		dealList = (ListView) findViewById(R.id.dealList);
@@ -61,7 +84,41 @@ public class StorePage extends Activity implements ServerAsyncParent{
 		Intent intent = getIntent();
 		int id = intent.getIntExtra("id", -1);
 		getDataFromServer(id);
-
+	}
+	
+	private Location getLastKnownLocation() {
+	    mLocationManager = (LocationManager)getApplicationContext().getSystemService(LOCATION_SERVICE);
+	    List<String> providers = mLocationManager.getProviders(true);
+	    Location bestLocation = null;
+	    for (String provider : providers) {
+	        Location l = mLocationManager.getLastKnownLocation(provider);
+	        if (l == null) {
+	            continue;
+	        }
+	        if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+	            // Found best last known location: %s", l);
+	            bestLocation = l;
+	        }
+	    }
+	    return bestLocation;
+	}
+	
+	private boolean findMyCity(){
+		Geocoder gcd = new Geocoder(context, Locale.getDefault().ENGLISH);
+		double lat = myLocation.getLatitude();
+		double lng = myLocation.getLongitude();
+		List<Address> addresses = null;
+		try {
+			addresses = gcd.getFromLocation(lat, lng, 1);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		if (addresses.size() > 0 && addresses != null) {
+		    city = addresses.get(0).getLocality();	
+		    return true;
+		}
+		return false;
 	}
 	
 	// Menu Bar
@@ -102,15 +159,25 @@ public class StorePage extends Activity implements ServerAsyncParent{
 				JSONObject row = deals.getJSONObject(i);
 
 				if (filter.equals(row.getString("category"))
-						|| filter.equals("all")) {
+						|| filter.equalsIgnoreCase("all")) {
 					DealObj deal = new DealObj(row.getString("id"),
 							row.getString("storeid"),
 							row.getString("category"),
 							row.getString("claimedBy"),
 							row.getString("picture"),
 							row.getString("deadLine"),
-							row.getString("dealName"));
-					fillMaps.add(deal);
+							row.getString("dealName"),
+							row.getString("city"));
+					
+					// if the flag is on - filter deals by location
+					// if location unavailable - show all deals
+					if (locationFlag) {
+						if (deal.getCity().equalsIgnoreCase(city) || city.equalsIgnoreCase(null) || deal.getCity().equalsIgnoreCase(null)) {
+							fillMaps.add(deal);
+						}
+					}else{
+						fillMaps.add(deal);
+					}
 				}
 			}
 
@@ -136,6 +203,7 @@ public class StorePage extends Activity implements ServerAsyncParent{
 						intent.putExtra("category",fillMaps.get(position).getCategory());
 						intent.putExtra("picture", fillMaps.get(position).getPicture());
 						intent.putExtra("dealName", fillMaps.get(position).getDealName());
+						intent.putExtra("city", fillMaps.get(position).getCity());
 						
 						startActivity(intent);
 					} else {
@@ -148,6 +216,7 @@ public class StorePage extends Activity implements ServerAsyncParent{
 						intent.putExtra("category",fillMaps.get(position).getCategory());
 						intent.putExtra("picture", fillMaps.get(position).getPicture());
 						intent.putExtra("dealName", fillMaps.get(position).getDealName());
+						intent.putExtra("city", fillMaps.get(position).getCity());
 						startActivity(intent);
 					}
 				}
