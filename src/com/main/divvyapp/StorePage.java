@@ -168,7 +168,7 @@ public class StorePage extends Activity implements ServerAsyncParent{
 							row.getString("deadLine"),
 							row.getString("dealName"),
 							row.getString("city"));
-					
+					//
 					// if the flag is on - filter deals by location
 					// if location unavailable - show all deals
 					if (locationFlag) {
