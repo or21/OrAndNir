@@ -9,9 +9,11 @@ public class DealObj {
 	private String picture;
 	private String deadLine;
 	private String dealName;
+	private String city;
+
 
 	public DealObj(String id, String storeId, String category,
-			String claimedBy, String picture, String deadLine, String dealName) {
+			String claimedBy, String picture, String deadLine, String dealName, String city) {
 		super();
 		this.id = id;
 		this.storeId = storeId;
@@ -20,6 +22,7 @@ public class DealObj {
 		this.picture = picture;
 		this.deadLine = deadLine;
 		this.dealName = dealName;
+		this.city = city;
 
 	}
 
@@ -77,5 +80,9 @@ public class DealObj {
 
 	public String getDealName() {
 		return dealName;
+	}
+	
+	public String getCity() {
+		return city;
 	}
 }

@@ -42,6 +42,8 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 	private String category;
 	private String picture;
 	private String dealName;
+	private String city;
+
 	final static String msg = "You have a match for a deal - click to start chat";
 
 	@Override
@@ -65,10 +67,12 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 		category = getIntent().getExtras().getString("category");
 		picture = getIntent().getExtras().getString("picture");
 		dealName = getIntent().getExtras().getString("dealName");
+		city = getIntent().getExtras().getString("city");
+
 
 		
 		final ArrayList<DealObj> fillMaps = new ArrayList<DealObj>();
-		DealObj deal = new DealObj(dealId, storeId, category, claimedBy, picture, deadLine, dealName);
+		DealObj deal = new DealObj(dealId, storeId, category, claimedBy, picture, deadLine, dealName,city);
 		fillMaps.add(deal);
 
 		// Get the ListView by Id and instantiate the adapter with

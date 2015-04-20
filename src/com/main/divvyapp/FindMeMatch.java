@@ -36,6 +36,7 @@ public class FindMeMatch extends Activity implements OnClickListener, ServerAsyn
 	private String category;
 	private String picture;
 	private String dealName;
+	private String city;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +54,15 @@ public class FindMeMatch extends Activity implements OnClickListener, ServerAsyn
 		category = getIntent().getExtras().getString("category");
 		picture = getIntent().getExtras().getString("picture");
 		dealName = getIntent().getExtras().getString("dealName");
+		city = getIntent().getExtras().getString("city");
+
 		
 		context = getApplicationContext();
 		deadLine = (TimePicker) findViewById(R.id.deadLine);
 		deadLine.setBackground(new ColorDrawable(Color.parseColor("#ececed")));
 		
 		final ArrayList<DealObj> fillMaps = new ArrayList<DealObj>();
-		DealObj deal = new DealObj(dealId, storeId, category, "0",	picture, "0", dealName);
+		DealObj deal = new DealObj(dealId, storeId, category, "0",	picture, "0", dealName,city);
 		fillMaps.add(deal);
 
 		// Get the ListView by Id and instantiate the adapter with
