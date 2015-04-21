@@ -12,12 +12,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.location.LocationServices;
-
 import serverComunication.ClietSideCommunicator;
 import serverComunication.ServerAsyncParent;
 import android.app.ActionBar;
@@ -53,37 +47,48 @@ public class StorePage extends Activity implements ServerAsyncParent{
 	String city;
 	
 	// Turn on location based filter
-	static final boolean locationFlag = true;
+	public static boolean locationFlag;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_store_page);
 		
+		init();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		init();
+		
+	}
+	
+	private void init() {
 		// Menu bar coloring
-		ActionBar bar = getActionBar();
-		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#71bd90")));
-		bar.setTitle("");
-		context = getApplicationContext();
-		
-		// Location
-		myLocation = getLastKnownLocation();
-		if (findMyCity() == false) {
-			city = null;
-		}
-		
-		pref = getSharedPreferences(LoginPage.class.getSimpleName(),
-				MODE_PRIVATE);
-		filter = getIntent().getExtras().getString("filter");
-		
+				ActionBar bar = getActionBar();
+				bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#71bd90")));
+				bar.setTitle("");
+				context = getApplicationContext();
+				
+				// Location
+				myLocation = getLastKnownLocation();
+				if (findMyCity() == false) {
+					city = null;
+				}
+				
+				pref = getSharedPreferences(LoginPage.class.getSimpleName(),
+						MODE_PRIVATE);
+				filter = getIntent().getExtras().getString("filter");
+				
 
-		// initialize the main list of deals
-		dealList = (ListView) findViewById(R.id.dealList);
+				// initialize the main list of deals
+				dealList = (ListView) findViewById(R.id.dealList);
 
-		// Gets data from previous activity - not necessary
-		Intent intent = getIntent();
-		int id = intent.getIntExtra("id", -1);
-		getDataFromServer(id);
+				// Gets data from previous activity - not necessary
+				Intent intent = getIntent();
+				int id = intent.getIntExtra("id", -1);
+				getDataFromServer(id);
 	}
 	
 	private Location getLastKnownLocation() {

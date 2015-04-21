@@ -12,9 +12,11 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Switch;
 
 public class Filter extends Activity {
 
@@ -37,6 +39,16 @@ public class Filter extends Activity {
 		bar.setTitle("Categories");
 
 		context = getApplicationContext();
+		
+		Switch loc = (Switch) findViewById(R.id.switch1);
+		loc.setChecked(StorePage.locationFlag);
+		loc.setOnClickListener(new OnClickListener() {
+		
+			@Override
+			public void onClick(View v) {
+				StorePage.locationFlag = !StorePage.locationFlag;
+			}
+		});
 		
 		ArrayList<FilterObj> categoriesList= new ArrayList<FilterObj>();
 		
