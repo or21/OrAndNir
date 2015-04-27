@@ -28,7 +28,6 @@ public class ImageAdapter extends BaseAdapter {
 		 
 		 activity = c;
 	     
-	     String currentStore = "";
 	     imageList = new ArrayList<Integer>();
 	     
 	    }

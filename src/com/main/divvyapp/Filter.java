@@ -20,12 +20,13 @@ import android.widget.Switch;
 
 public class Filter extends Activity {
 
-	Context context;
-	final String[] categories = {"All", "Apparel Children", "Apparel Men", "Apparel Woman",
-			"Women's Shoes", "Men's Shoes", "Health & Beauty", "Home Furnishing Decor", 
+	private Context context;
+	private Switch loc;
+	private final String[] categories = {"All", "Children\'s Apparel", "Men\'s Apparel", "Women\'s Apparel",
+			"Women\'s Shoes", "Men\'s Shoes", "Health & Beauty", "Home Furnishing Decor", 
 			"Jewellery & Accessories", "Technology","Baby & Infants", "Beauty & Fragrance"};
-	
-	int[] images = {R.drawable.filter_icon, R.drawable.ca_icon, R.drawable.ma_icon, R.drawable.wa_icon, R.drawable.ws_icon, R.drawable.ms_icons,
+
+	private int[] images = {R.drawable.filter_icon, R.drawable.ca_icon, R.drawable.ma_icon, R.drawable.wa_icon, R.drawable.ws_icon, R.drawable.ms_icons,
 			R.drawable.hf_icon, R.drawable.hdf_icons, R.drawable.ja_icon, R.drawable.tei_con, R.drawable.ba_icons, R.drawable.bf_icon};
 
 	@Override
@@ -39,19 +40,19 @@ public class Filter extends Activity {
 		bar.setTitle("Categories");
 
 		context = getApplicationContext();
-		
-		Switch loc = (Switch) findViewById(R.id.switch1);
+
+		loc = (Switch) findViewById(R.id.switch1);
 		loc.setChecked(StorePage.locationFlag);
 		loc.setOnClickListener(new OnClickListener() {
-		
+
 			@Override
 			public void onClick(View v) {
 				StorePage.locationFlag = !StorePage.locationFlag;
 			}
 		});
-		
+
 		ArrayList<FilterObj> categoriesList= new ArrayList<FilterObj>();
-		
+
 		for (int i = 0; i < 12; i++) {
 			categoriesList.add(new FilterObj(categories[i], images[i]));
 		}

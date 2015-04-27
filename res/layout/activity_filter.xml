@@ -2,15 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="#ececed"
     tools:context="com.main.divvyapp.Filter" >
-    
+
     <ListView
         android:id="@+id/listViewId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/switch1"
         android:background="#ececed"
         android:divider="#bdbebf"
-        android:layout_below="@+id/switch1"
         android:dividerHeight="0.1dp" >
     </ListView>
 
@@ -21,6 +22,11 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:gravity="center_vertical"
-        android:text="Find by location" />
-    
+        android:textOn="On"
+        android:textColor="#898989"
+        android:background="#ececed"
+        android:textOff="Off"
+        android:thumb="@drawable/switch_thumb"
+        android:text="@string/Find_by_location"/>
+
 </RelativeLayout>

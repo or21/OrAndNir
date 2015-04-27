@@ -18,7 +18,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Geocoder;
@@ -35,79 +34,72 @@ import android.location.*;
 
 public class StorePage extends Activity implements ServerAsyncParent{
 
-	String filter;
-	// String[] fillMapsArr;
-	int dealid;
+	private String filter;
 	private ListView dealList;
-	Context context;
-	SharedPreferences pref;
-	ClietSideCommunicator cummunicator;
-	LocationManager mLocationManager;
-	Location myLocation;
-	String city;
-	
+	private Context context;
+	private ClietSideCommunicator cummunicator;
+	private LocationManager mLocationManager;
+	private Location myLocation;
+	private String city;
+
 	// Turn on location based filter
-	public static boolean locationFlag;
+	public static boolean locationFlag = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_store_page);
-		
+
 		init();
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 		init();
-		
 	}
-	
+
 	private void init() {
 		// Menu bar coloring
-				ActionBar bar = getActionBar();
-				bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#71bd90")));
-				bar.setTitle("");
-				context = getApplicationContext();
-				
-				// Location
-				myLocation = getLastKnownLocation();
-				if (findMyCity() == false) {
-					city = null;
-				}
-				
-				pref = getSharedPreferences(LoginPage.class.getSimpleName(),
-						MODE_PRIVATE);
-				filter = getIntent().getExtras().getString("filter");
-				
+		ActionBar bar = getActionBar();
+		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#71bd90")));
+		bar.setTitle("");
+		context = getApplicationContext();
 
-				// initialize the main list of deals
-				dealList = (ListView) findViewById(R.id.dealList);
+		// Location
+		myLocation = getLastKnownLocation();
+		if (findMyCity() == false) {
+			city = null;
+		}
 
-				// Gets data from previous activity - not necessary
-				Intent intent = getIntent();
-				int id = intent.getIntExtra("id", -1);
-				getDataFromServer(id);
+		filter = getIntent().getExtras().getString("filter");
+
+		// initialize the main list of deals
+		dealList = (ListView) findViewById(R.id.dealList);
+
+		// Gets data from previous activity - not necessary
+		Intent intent = getIntent();
+		int id = intent.getIntExtra("id", -1);
+		getDataFromServer(id);
 	}
-	
+
 	private Location getLastKnownLocation() {
-	    mLocationManager = (LocationManager)getApplicationContext().getSystemService(LOCATION_SERVICE);
-	    List<String> providers = mLocationManager.getProviders(true);
-	    Location bestLocation = null;
-	    for (String provider : providers) {
-	        Location l = mLocationManager.getLastKnownLocation(provider);
-	        if (l == null) {
-	            continue;
-	        }
-	        if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
-	            // Found best last known location: %s", l);
-	            bestLocation = l;
-	        }
-	    }
-	    return bestLocation;
+		mLocationManager = (LocationManager)getApplicationContext().getSystemService(LOCATION_SERVICE);
+		List<String> providers = mLocationManager.getProviders(true);
+		Location bestLocation = null;
+		for (String provider : providers) {
+			Location l = mLocationManager.getLastKnownLocation(provider);
+			if (l == null) {
+				continue;
+			}
+			if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+				// Found best last known location: %s", l);
+				bestLocation = l;
+			}
+		}
+		return bestLocation;
 	}
-	
+
 	private boolean findMyCity(){
 		Locale.getDefault();
 		Geocoder gcd = new Geocoder(context, Locale.ENGLISH);
@@ -121,36 +113,36 @@ public class StorePage extends Activity implements ServerAsyncParent{
 			return false;
 		}
 		if (addresses.size() > 0 && addresses != null) {
-		    city = addresses.get(0).getLocality();	
-		    return true;
+			city = addresses.get(0).getLocality();	
+			return true;
 		}
 		return false;
 	}
-	
+
 	// Menu Bar
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    // Inflate the menu items for use in the action bar
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.layout.main_activity_actions, menu);
-	    return super.onCreateOptionsMenu(menu);
+		// Inflate the menu items for use in the action bar
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.layout.main_activity_actions, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle presses on the action bar items
-	    switch (item.getItemId()) {
-	        case R.id.action_filter:
-	        	Intent intent1 = new Intent(context, Filter.class);
-				startActivity(intent1);
-				return true;
-	        case R.id.previous_chats:
-	        	Intent intent2 = new Intent(context, ChatHistory.class);
-				startActivity(intent2);
-				return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case R.id.action_filter:
+			Intent intent1 = new Intent(context, Filter.class);
+			startActivity(intent1);
+			return true;
+		case R.id.previous_chats:
+			Intent intent2 = new Intent(context, ChatHistory.class);
+			startActivity(intent2);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
-	
+
 	public void getDataFromServer(int id) {
 		// Sending GET request to server
 		cummunicator = new ClietSideCommunicator();
@@ -164,9 +156,10 @@ public class StorePage extends Activity implements ServerAsyncParent{
 			for (int i = 0; i < deals.length(); i++) {
 				JSONObject row = deals.getJSONObject(i);
 
-				if (filter.equals(row.getString("category"))
+				if ((filter+"\n").equals(row.getString("category")) || filter.equals(row.getString("category"))
 						|| filter.equalsIgnoreCase("all")) {
-					DealObj deal = new DealObj(row.getString("id"),
+					DealObj deal = new DealObj(
+							row.getString("id"),
 							row.getString("storeid"),
 							row.getString("category"),
 							row.getString("claimedBy"),
@@ -174,14 +167,15 @@ public class StorePage extends Activity implements ServerAsyncParent{
 							row.getString("deadLine"),
 							row.getString("dealName"),
 							row.getString("city"));
-					//
+
 					// if the flag is on - filter deals by location
 					// if location unavailable - show all deals
 					if (locationFlag) {
-						if (deal.getCity().equalsIgnoreCase(city) || city.equalsIgnoreCase(null) || deal.getCity().equalsIgnoreCase(null)) {
+						if (deal.getCity().equalsIgnoreCase(city) || city.equalsIgnoreCase(null)
+								|| deal.getCity().equalsIgnoreCase(null)) {
 							fillMaps.add(deal);
 						}
-					}else{
+					} else{
 						fillMaps.add(deal);
 					}
 				}
@@ -192,17 +186,13 @@ public class StorePage extends Activity implements ServerAsyncParent{
 			dealList = (ListView) findViewById(R.id.dealList);
 			ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps);
 			dealList.setAdapter(adapter);
-
-
 			dealList.setClickable(true);
 			dealList.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 					if (fillMaps.get(position).getClaimedBy().length() < 15) {
-						
 						Intent intent = new Intent(context, FindMeMatch.class);
 						intent.putExtra("dealid", fillMaps.get(position).getId());
 						intent.putExtra("storeId", fillMaps.get(position).getStoreId());
@@ -210,10 +200,10 @@ public class StorePage extends Activity implements ServerAsyncParent{
 						intent.putExtra("picture", fillMaps.get(position).getPicture());
 						intent.putExtra("dealName", fillMaps.get(position).getDealName());
 						intent.putExtra("city", fillMaps.get(position).getCity());
-						
 						startActivity(intent);
+
 					} else {
-						
+
 						Intent intent = new Intent(context, CompleteMatch.class);
 						intent.putExtra("dealid", fillMaps.get(position).getId());
 						intent.putExtra("claimedBy", fillMaps.get(position).getClaimedBy());
@@ -242,5 +232,4 @@ public class StorePage extends Activity implements ServerAsyncParent{
 			e.printStackTrace();
 		}
 	}
-
 }

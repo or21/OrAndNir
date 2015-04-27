@@ -50,7 +50,7 @@ public class LoginPage extends Activity implements OnClickListener , ServerAsync
 	private EditText userName ;
 	private EditText email;
 	private EditText phone;
-	Context context;
+	private Context context;
 	private SharedPreferences pref;
 	private SharedPreferences.Editor editor;
 	private String uid;

@@ -1,8 +1,6 @@
 package helpeMethods;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.main.divvyapp.R;
 import com.squareup.picasso.Picasso;
@@ -16,21 +14,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ListDealsAdapter extends BaseAdapter {
-	
-	private final String SERVER = "http://nir.milab.idc.ac.il/pictures/";
-	//Store Map
-	private static final Map<String, Integer> constantStores;
-	static
-	{
-		constantStores = new HashMap<String, Integer>();
-		constantStores.put("newLogo", R.drawable.newlogo);
-		constantStores.put("castro", R.drawable.castro);
-	}
 
+	private final String SERVER = "http://nir.milab.idc.ac.il/pictures/";
 
 	private DealObj deal;
 	private ViewHolder holder;
-	Context context;
+	private Context context;
 	protected List<DealObj> listDeals;
 	private LayoutInflater inflater;
 
@@ -63,8 +52,7 @@ public class ListDealsAdapter extends BaseAdapter {
 		if (convertView == null) {
 
 			holder = new ViewHolder();
-			convertView = this.inflater.inflate(R.layout.layout_list_item,
-					parent, false);
+			convertView = this.inflater.inflate(R.layout.layout_list_item, parent, false);
 
 			holder.dealName = (TextView) convertView.findViewById(R.id.txt_id);
 			holder.storId = (TextView) convertView.findViewById(R.id.txt_storeid);
@@ -83,7 +71,7 @@ public class ListDealsAdapter extends BaseAdapter {
 		holder.storId.setText(deal.getStoreId());
 		holder.category.setText(deal.getCategory());
 
-		if (deal.getClaimedBy().length() > 15) {
+		if (!deal.getClaimedBy().equals("")) {
 			holder.claimedBy.setText("Pending");
 		}
 
@@ -96,7 +84,6 @@ public class ListDealsAdapter extends BaseAdapter {
 
 
 	private class ViewHolder {
-		//		 TextView id;
 		TextView dealName;
 		TextView storId;
 		TextView category;

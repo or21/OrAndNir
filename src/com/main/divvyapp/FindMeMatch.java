@@ -14,7 +14,6 @@ import serverComunication.DataTransfer;
 import serverComunication.ServerAsyncParent;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -29,7 +28,6 @@ import android.widget.TimePicker;
 public class FindMeMatch extends Activity implements OnClickListener, ServerAsyncParent {
 	
 	private TimePicker deadLine;
-	Context context;
 	private String dealId;
 	private SharedPreferences pref;
 	private String storeId;
@@ -55,9 +53,7 @@ public class FindMeMatch extends Activity implements OnClickListener, ServerAsyn
 		picture = getIntent().getExtras().getString("picture");
 		dealName = getIntent().getExtras().getString("dealName");
 		city = getIntent().getExtras().getString("city");
-
 		
-		context = getApplicationContext();
 		deadLine = (TimePicker) findViewById(R.id.deadLine);
 		deadLine.setBackground(new ColorDrawable(Color.parseColor("#ececed")));
 		

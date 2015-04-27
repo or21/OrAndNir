@@ -36,5 +36,6 @@
     <string name="date">Date</string>
     <string name="deal_description">Deal Description</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
+    <string name = "Find_by_location">Find by location</string>
 
 </resources>

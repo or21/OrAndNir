@@ -15,6 +15,7 @@ import serverComunication.DataTransfer;
 import serverComunication.ServerAsyncParent;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,7 +32,7 @@ import android.widget.Toast;
 
 public class CompleteMatch extends Activity implements ServerAsyncParent {
 
-	Context context;
+	private Context context;
 	private String dealId;
 	private SharedPreferences pref;
 	private TextView countdown;
@@ -43,6 +44,7 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 	private String picture;
 	private String dealName;
 	private String city;
+	ProgressDialog dialog;
 
 	final static String msg = "You have a match for a deal - click to start chat";
 
@@ -57,6 +59,7 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 		bar.setTitle("");
 		
 		context = getApplicationContext();
+		dialog = new ProgressDialog(this);
 		pref = getSharedPreferences(LoginPage.class.getSimpleName(), MODE_PRIVATE);
 		uid = pref.getString("uid", "error");
 		
@@ -69,8 +72,6 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 		dealName = getIntent().getExtras().getString("dealName");
 		city = getIntent().getExtras().getString("city");
 
-
-		
 		final ArrayList<DealObj> fillMaps = new ArrayList<DealObj>();
 		DealObj deal = new DealObj(dealId, storeId, category, claimedBy, picture, deadLine, dealName,city);
 		fillMaps.add(deal);
@@ -130,6 +131,10 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 						view.setBackground(new ColorDrawable(Color.parseColor("#71bd90")));
 						toast.show();
 					} else {
+						dialog.setMessage("Opening chat, please wait...");
+						dialog.setProgressStyle(Color.parseColor("#71bd90"));
+						dialog.show();
+
 						sendUpadte(v);
 					}
 				}

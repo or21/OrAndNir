@@ -42,7 +42,6 @@ public class ChatHistory extends Activity implements ServerAsyncParent{
 	private String uid;
 	private String myName;
 	
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
