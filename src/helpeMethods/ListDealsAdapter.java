@@ -17,8 +17,7 @@ public class ListDealsAdapter extends BaseAdapter {
 
 	private final String SERVER = "http://nir.milab.idc.ac.il/pictures/";
 
-	private DealObj deal;
-	private ViewHolder holder;
+	
 	private Context context;
 	protected List<DealObj> listDeals;
 	private LayoutInflater inflater;
@@ -42,19 +41,17 @@ public class ListDealsAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		//		return listDeals.get(position).getPicture();
-		return 100;
+		return position;
 	}
 
-	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
+		ViewHolder holder;
 		if (convertView == null) {
 
 			holder = new ViewHolder();
 			convertView = this.inflater.inflate(R.layout.layout_list_item, parent, false);
 
-			holder.dealName = (TextView) convertView.findViewById(R.id.txt_id);
+			holder.dealName = (TextView) convertView.findViewById(R.id.txt_dealName);
 			holder.storId = (TextView) convertView.findViewById(R.id.txt_storeid);
 			holder.category = (TextView) convertView.findViewById(R.id.txt_category);
 
@@ -66,13 +63,15 @@ public class ListDealsAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		deal = listDeals.get(position);
+		DealObj deal = listDeals.get(position);
 		holder.dealName.setText(deal.getDealName());
 		holder.storId.setText(deal.getStoreId());
 		holder.category.setText(deal.getCategory());
 
-		if (!deal.getClaimedBy().equals("")) {
+		if (deal.getClaimedBy().length() > 15) {
 			holder.claimedBy.setText("Pending");
+		} else {
+			holder.claimedBy.setText("");
 		}
 
 		// Image setup
@@ -82,7 +81,6 @@ public class ListDealsAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-
 	private class ViewHolder {
 		TextView dealName;
 		TextView storId;
@@ -90,5 +88,4 @@ public class ListDealsAdapter extends BaseAdapter {
 		TextView claimedBy;
 		ImageView picture;
 	}
-
 }

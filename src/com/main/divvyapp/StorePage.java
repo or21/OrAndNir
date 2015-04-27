@@ -156,7 +156,7 @@ public class StorePage extends Activity implements ServerAsyncParent{
 			for (int i = 0; i < deals.length(); i++) {
 				JSONObject row = deals.getJSONObject(i);
 
-				if ((filter+"\n").equals(row.getString("category")) || filter.equals(row.getString("category"))
+				if ((filter + "\n").equals(row.getString("category")) || filter.equals(row.getString("category"))
 						|| filter.equalsIgnoreCase("all")) {
 					DealObj deal = new DealObj(
 							row.getString("id"),
@@ -181,8 +181,6 @@ public class StorePage extends Activity implements ServerAsyncParent{
 				}
 			}
 
-			// Get the ListView by Id and instantiate the adapter with
-			// cars data and then set it the ListView
 			dealList = (ListView) findViewById(R.id.dealList);
 			ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps);
 			dealList.setAdapter(adapter);
