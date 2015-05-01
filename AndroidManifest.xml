@@ -19,7 +19,7 @@
     <uses-permission android:name="com.main.divvyapp.permission.C2D_MESSAGE" />
 
     <uses-sdk
-        android:minSdkVersion="16"
+        android:minSdkVersion="10"
         android:targetSdkVersion="21" />
 
     <application
