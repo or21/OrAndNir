@@ -62,10 +62,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.22"
-                android:fontFamily="sans-serif-thin"
+                android:fontFamily="sans-serif"
+                android:paddingLeft="8dp"
+                android:paddingRight="1dp"
+                android:paddingEnd="1dp"
+                android:paddingStart="8dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#959595"
-                android:textStyle="normal" />
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout

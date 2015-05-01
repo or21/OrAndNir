@@ -68,7 +68,7 @@ public class StorePage extends Activity implements ServerAsyncParent{
 
 		// Location
 		myLocation = getLastKnownLocation();
-		if (findMyCity() == false) {
+		if ((myLocation == null) || (findMyCity() == false)) {
 			city = null;
 		}
 

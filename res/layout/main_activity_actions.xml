@@ -3,12 +3,12 @@
     <item
         android:id="@+id/action_filter"
         android:icon="@drawable/filter_icon"
-        android:showAsAction="ifRoom"/>
+        android:showAsAction="always"/>
 
     <item
         android:id="@+id/previous_chats"
         android:background="#71bd90"
-        android:showAsAction="never"
+        android:showAsAction="always"
         android:title="@string/previous_chats"/>
 
 </menu>

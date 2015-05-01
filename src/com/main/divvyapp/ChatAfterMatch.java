@@ -37,6 +37,7 @@ public class ChatAfterMatch extends Activity implements ServerAsyncParent {
 	private ListView mainList;
 	private Button send;
 	private Thread t;
+	private String chatid;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class ChatAfterMatch extends Activity implements ServerAsyncParent {
 		Bundle extras = getIntent().getExtras();
 		
 		pref = getSharedPreferences(LoginPage.class.getSimpleName(), MODE_PRIVATE);
+		chatid = extras.getString("chatid");
 		claimedBy = extras.getString("claimedBy");
 		uid = extras.getString("uid");
 		me = pref.getString("uid", "error");
@@ -103,17 +105,17 @@ public class ChatAfterMatch extends Activity implements ServerAsyncParent {
 	}
 	
 	public void ChatServer(String uid, String claimedBy, String message, String operation) {
-		String claimer = claimedBy.substring(0, claimedBy.indexOf("-"));
-		String completer = uid.substring(0, uid.indexOf("-"));
+//		String claimer = claimedBy.substring(0, claimedBy.indexOf("-"));
+//		String completer = uid.substring(0, uid.indexOf("-"));
 
 		// Sending GET request to server
 		if (operation == get) {
 			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("chatid", completer + claimer));
+			params.add(new BasicNameValuePair("chatid", chatid));
 			new DataTransfer(this, params, DataTransfer.METHOD_GET).execute("http://nir.milab.idc.ac.il/php/milab_get_chat.php");
 		} else {
 			ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("chatid", completer + claimer));
+			params.add(new BasicNameValuePair("chatid", chatid));
 			params.add(new BasicNameValuePair("name", me));
 			params.add(new BasicNameValuePair("message", message));
 			new DataTransfer(this, params, DataTransfer.METHOD_POST).execute("http://nir.milab.idc.ac.il/php/milab_update_chat.php");

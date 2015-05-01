@@ -1,36 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="10dp"
-    android:weightSum="100" >
+    tools:context="com.main.divvyapp.Filter" >
+
+    <!-- Single List Item Design -->
+
+    <ImageView
+        android:id="@+id/deal_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:background="#ffffff"
+        android:contentDescription="@null"
+        android:gravity="center_vertical" />
 
     <TextView
-        android:id="@+id/date"
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-        android:layout_weight="30"
+        android:id="@+id/deal_description_chat_and_store"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/deal_image"
+        android:layout_toRightOf="@+id/deal_image"
+        android:background="#ececed"
         android:fontFamily="sans-serif"
-        android:gravity="center_horizontal"
-        android:textColor="#71bd90" />
+        android:padding="10dip"
+        android:textColor="#898989"
+        android:textSize="15sp"
+        android:textStyle="normal" >
+    </TextView>
 
     <TextView
-        android:id="@+id/other_user"
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-        android:layout_weight="30"
+        android:id="@+id/other_user_and_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#ececed"
         android:fontFamily="sans-serif"
-        android:gravity="center_horizontal"
-        android:textColor="#71bd90" />
+        android:padding="10dip"
+        android:textColor="#898989"
+        android:textSize="15sp"
+        android:textStyle="normal" >
+    </TextView>
 
-    <TextView
-        android:id="@+id/dealdescription"
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-        android:layout_weight="40"
-        android:fontFamily="sans-serif"
-        android:gravity="center_horizontal"
-        android:textColor="#71bd90" />
-
-</LinearLayout>
+</RelativeLayout>

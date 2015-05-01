@@ -49,7 +49,7 @@ public class ChatHistory extends Activity implements ServerAsyncParent{
 		// Menu bar coloring
 		ActionBar bar = getActionBar();
 		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#71bd90")));
-		bar.setTitle("Chat History");
+		bar.setTitle("Previous Deals");
 		
 		pref = getSharedPreferences(LoginPage.class.getSimpleName(), MODE_PRIVATE);
 		uid = pref.getString("uid", "error");
@@ -90,10 +90,14 @@ public class ChatHistory extends Activity implements ServerAsyncParent{
 	        for(int i = 0; i <  chats.length(); i++){
 	            JSONObject row = chats.getJSONObject(i);
 	            if (myName.equals(row.getString("user1"))) {
-	            	fillMaps.add(new ChatItem(row.getString("chatid"), row.getString("user1"), row.getString("user2"), row.getString("dealid"), row.getString("dealdescription"), row.getString("date")));
+	            	fillMaps.add(new ChatItem(row.getString("chatid"), row.getString("user1"), 
+	            			row.getString("user2"), row.getString("dealid"), row.getString("dealdescription"), 
+	            			row.getString("date"), row.getString("storeid"), row.getString("picture")));
 	            }
 	            else {
-	            	fillMaps.add(new ChatItem(row.getString("chatid"), row.getString("user2"), row.getString("user1"), row.getString("dealid"), row.getString("dealdescription"), row.getString("date")));
+	            	fillMaps.add(new ChatItem(row.getString("chatid"), row.getString("user2"), 
+	            			row.getString("user1"), row.getString("dealid"), row.getString("dealdescription"), 
+	            			row.getString("date"), row.getString("storeid"), row.getString("picture")));
 	            }
 	            
 	        }

@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 public class ListDealsAdapter extends BaseAdapter {
 
-	private final String SERVER = "http://nir.milab.idc.ac.il/pictures/";
+	final static String SERVER = "http://nir.milab.idc.ac.il/pictures/";
 
 	
 	private Context context;

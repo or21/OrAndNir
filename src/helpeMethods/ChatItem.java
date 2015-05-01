@@ -8,14 +8,19 @@ public class ChatItem {
 	private String dealid;
 	private String dealdescription;
 	private String date;
+	private String storeid;
+	private String picture;
 	
-	public ChatItem(String chatid, String myName, String otherUser, String dealid, String dealdescription, String date) {
+	public ChatItem(String chatid, String myName, String otherUser, String dealid, String dealdescription, String date
+			,String storeid, String picture) {
 		this.chatid = chatid;
 		this.myName = myName;
 		this.otherUser = otherUser;
 		this.dealid = dealid;
 		this.dealdescription = dealdescription;
 		this.date = date;
+		this.storeid = storeid;
+		this.picture = picture;
 	}
 
 	public String getChatid() {
@@ -64,6 +69,22 @@ public class ChatItem {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public String getStoreid() {
+		return storeid;
+	}
+
+	public void setStoreid(String storeid) {
+		this.storeid = storeid;
+	}
+
+	public String getPicture() {
+		return picture;
+	}
+
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 	
 }

@@ -45,6 +45,7 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 	private String dealName;
 	private String city;
 	ProgressDialog dialog;
+	private String chatid;
 
 	final static String msg = "You have a match for a deal - click to start chat";
 
@@ -146,12 +147,13 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 		String claimer = claimedBy.substring(0, claimedBy.indexOf("-"));
 		String completer = uid.substring(0, uid.indexOf("-"));
 		String newMsg = msg + "chatid:" + uid;
+		chatid = completer + claimer;
 		
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("deadLine", null));
 		params.add(new BasicNameValuePair("dealid",dealId));
 		params.add(new BasicNameValuePair("uidNew", null));
-		params.add(new BasicNameValuePair("chatid", completer + claimer));
+		params.add(new BasicNameValuePair("chatid", chatid));
 		params.add(new BasicNameValuePair("uid", completer));
 		params.add(new BasicNameValuePair("msg", newMsg));
 		params.add(new BasicNameValuePair("target", claimedBy));
@@ -166,6 +168,7 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 		Bundle extras = new Bundle();
 		extras.putString("claimedBy", claimedBy);
 		extras.putString("uid", uid);
+		extras.putString("chatid", chatid);
 		
 		intent.putExtras(extras);
 		startActivity(intent);
