@@ -49,7 +49,7 @@ public class ChatHistory extends Activity implements ServerAsyncParent{
 		// Menu bar coloring
 		ActionBar bar = getActionBar();
 		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#71bd90")));
-		bar.setTitle("Previous Deals");
+		bar.setTitle("My Deals");
 		
 		pref = getSharedPreferences(LoginPage.class.getSimpleName(), MODE_PRIVATE);
 		uid = pref.getString("uid", "error");

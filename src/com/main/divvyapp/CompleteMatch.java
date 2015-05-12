@@ -47,7 +47,7 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 	ProgressDialog dialog;
 	private String chatid;
 
-	final static String msg = "You have a match for a deal - click to start chat";
+	final static String msg = "Click here to Divvy it up";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +88,7 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 		// if the deal is finishing right now giving the option to return to DealsPage
 		if (miliDeadLine <= 600) {
 			countdown = (TextView) findViewById(R.id.countdown);
-			countdown.setText("Expired!");
+			countdown.setText("Uh-Oh UserName left!");
 			Button completeMatch = (Button) findViewById(R.id.completeDeal);
 			completeMatch.setText("Back to Deals");
 			completeMatch.setOnClickListener(new OnClickListener() {
@@ -96,6 +96,7 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(context, StorePage.class);
+					intent.putExtra("filter", "all");
 					startActivity(intent);
 					finish();
 				}
@@ -115,7 +116,7 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 				}
 
 				public void onFinish() {
-					countdown.setText("Expired!");
+					countdown.setText("Uh-Oh UserName left!");
 				}
 			};
 			cT.start();
@@ -127,7 +128,7 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 				@Override
 				public void onClick(View v) {
 					if (claimedBy.equals(uid)) {
-						Toast toast = Toast.makeText(context, "You can't complete deal with yourself" , Toast.LENGTH_LONG);
+						Toast toast = Toast.makeText(context, "You've already claimed this deal" , Toast.LENGTH_LONG);
 						View view = toast.getView();
 						view.setBackground(new ColorDrawable(Color.parseColor("#71bd90")));
 						toast.show();

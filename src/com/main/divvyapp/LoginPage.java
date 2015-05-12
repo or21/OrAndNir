@@ -48,7 +48,7 @@ public class LoginPage extends Activity implements OnClickListener , ServerAsync
 
 	private String SENDER_ID = "49315087842";
 	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-	private static final CharSequence MISSING_INPUT = "Please fill all the required fields";
+	private static final CharSequence MISSING_INPUT = "Oops! Looks like you forgot something";
 	private EditText userName ;
 	private EditText email;
 	private EditText phone;

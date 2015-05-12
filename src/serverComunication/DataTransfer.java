@@ -123,7 +123,7 @@ public class DataTransfer extends AsyncTask<String, Void, Boolean> {
 		if (isRequestSucceeded) {
 			parentActivity.doOnPostExecute(jObj);
 		} else {
-			CharSequence text = "No data!";
+			CharSequence text = "Nothing here yet";
 			int duration = Toast.LENGTH_SHORT;
 			Toast toast = Toast.makeText((Context) parentActivity, text, duration);
 			View view = toast.getView();
