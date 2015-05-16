@@ -45,7 +45,6 @@ public class LoginPage extends Activity implements OnClickListener , ServerAsync
 	public static final String PROPERTY_REG_ID = "google_id";
 	private static final String PROPERTY_APP_VERSION = "appVersion";
 	static final String TAG = "Divvy";
-
 	private String SENDER_ID = "49315087842";
 	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	private static final CharSequence MISSING_INPUT = "Oops! Looks like you forgot something";
@@ -170,7 +169,6 @@ public class LoginPage extends Activity implements OnClickListener , ServerAsync
 		goToDealsPageAndFinish(null);
 	}
 
-
 	/**
 	 * @return Application's version code from the {@code PackageManager}.
 	 */
@@ -228,6 +226,7 @@ public class LoginPage extends Activity implements OnClickListener , ServerAsync
 			Log.i(TAG, "App version changed.");
 			return "";
 		}
+		
 		return registrationId;
 	}
 
@@ -267,6 +266,7 @@ public class LoginPage extends Activity implements OnClickListener , ServerAsync
 					// Require the user to click a button again, or perform
 					// exponential back-off.
 				}
+				
 				return msg;
 			}
 

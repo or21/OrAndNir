@@ -16,7 +16,9 @@ import serverComunication.ClietSideCommunicator;
 import serverComunication.ServerAsyncParent;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -28,6 +30,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.location.*;
@@ -97,6 +100,7 @@ public class StorePage extends Activity implements ServerAsyncParent{
 				bestLocation = l;
 			}
 		}
+
 		return bestLocation;
 	}
 
@@ -116,6 +120,7 @@ public class StorePage extends Activity implements ServerAsyncParent{
 			city = addresses.get(0).getLocality();	
 			return true;
 		}
+
 		return false;
 	}
 
@@ -133,10 +138,12 @@ public class StorePage extends Activity implements ServerAsyncParent{
 		case R.id.action_filter:
 			Intent intent1 = new Intent(context, Filter.class);
 			startActivity(intent1);
+			finish();
 			return true;
 		case R.id.previous_chats:
 			Intent intent2 = new Intent(context, ChatHistory.class);
 			startActivity(intent2);
+			finish();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -151,7 +158,6 @@ public class StorePage extends Activity implements ServerAsyncParent{
 
 	public void setDataFromServer(JSONArray deals) {
 		try {
-
 			final ArrayList<DealObj> fillMaps = new ArrayList<DealObj>();
 			for (int i = 0; i < deals.length(); i++) {
 				JSONObject row = deals.getJSONObject(i);
@@ -166,7 +172,8 @@ public class StorePage extends Activity implements ServerAsyncParent{
 							row.getString("picture"),
 							row.getString("deadLine"),
 							row.getString("dealName"),
-							row.getString("city"));
+							row.getString("city"),
+							row.getString("userName"));
 
 					// if the flag is on - filter deals by location
 					// if location unavailable - show all deals
@@ -182,6 +189,14 @@ public class StorePage extends Activity implements ServerAsyncParent{
 			}
 
 			dealList = (ListView) findViewById(R.id.dealList);
+			if (fillMaps.isEmpty()) {
+				CharSequence text = "Nothing here yet";
+				int duration = Toast.LENGTH_SHORT;
+				Toast toast = Toast.makeText(context, text, duration);
+				View view = toast.getView();
+				view.setBackground(new ColorDrawable(Color.parseColor("#71bd90")));
+				toast.show();
+			}
 			ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps);
 			dealList.setAdapter(adapter);
 			dealList.setClickable(true);
@@ -198,10 +213,10 @@ public class StorePage extends Activity implements ServerAsyncParent{
 						intent.putExtra("picture", fillMaps.get(position).getPicture());
 						intent.putExtra("dealName", fillMaps.get(position).getDealName());
 						intent.putExtra("city", fillMaps.get(position).getCity());
+						intent.putExtra("userNameClaimed", fillMaps.get(position).getUserNameClaimed());
 						startActivity(intent);
 
 					} else {
-
 						Intent intent = new Intent(context, CompleteMatch.class);
 						intent.putExtra("dealid", fillMaps.get(position).getId());
 						intent.putExtra("claimedBy", fillMaps.get(position).getClaimedBy());
@@ -211,14 +226,28 @@ public class StorePage extends Activity implements ServerAsyncParent{
 						intent.putExtra("picture", fillMaps.get(position).getPicture());
 						intent.putExtra("dealName", fillMaps.get(position).getDealName());
 						intent.putExtra("city", fillMaps.get(position).getCity());
+						intent.putExtra("userNameClaimed", fillMaps.get(position).getUserNameClaimed());
 						startActivity(intent);
 					}
 				}
 			});
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void onBackPressed() {
+		new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+		.setMessage("Are you sure you want to exit?")
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				finish();
+				System.exit(0);
+			}
+		}).setNegativeButton("No", null).show();
 	}
 
 	public void doOnPostExecute(JSONObject jObj) {

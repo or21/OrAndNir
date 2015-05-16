@@ -41,20 +41,20 @@ public class ChatHistory extends Activity implements ServerAsyncParent{
 	private SharedPreferences pref;
 	private String uid;
 	private String myName;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		// Menu bar coloring
 		ActionBar bar = getActionBar();
 		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#71bd90")));
 		bar.setTitle("My Deals");
-		
+
 		pref = getSharedPreferences(LoginPage.class.getSimpleName(), MODE_PRIVATE);
 		uid = pref.getString("uid", "error");
 		myName = pref.getString("myName", "error");
-		
+
 		// need to change to what happened when device is not supported
 		if (!checkPlayServices()) {
 			Toast.makeText(context, "No valid Google Play Services APK found.", Toast.LENGTH_LONG).show();
@@ -76,7 +76,15 @@ public class ChatHistory extends Activity implements ServerAsyncParent{
 			getDataFromServer(id);
 		}
 	}
-	
+
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(context, StorePage.class);
+		intent.putExtra("filter", "all");
+		startActivity(intent);
+		finish();
+	}
+
 	public void getDataFromServer(int id) {
 		cummunicator = new ClietSideCommunicator();
 		cummunicator.connectChatsTable(this, uid);
@@ -84,27 +92,26 @@ public class ChatHistory extends Activity implements ServerAsyncParent{
 
 	public void setDataFromServer(JSONArray chats) {
 		try {
-	 
-	        // looping through All Users prepare the list of all records
+
+			// looping through All Users prepare the list of all records
 			ArrayList<ChatItem> fillMaps = new ArrayList<ChatItem>();
-	        for(int i = 0; i <  chats.length(); i++){
-	            JSONObject row = chats.getJSONObject(i);
-	            if (myName.equals(row.getString("user1"))) {
-	            	fillMaps.add(new ChatItem(row.getString("chatid"), row.getString("user1"), 
-	            			row.getString("user2"), row.getString("dealid"), row.getString("dealdescription"), 
-	            			row.getString("date"), row.getString("storeid"), row.getString("picture")));
-	            }
-	            else {
-	            	fillMaps.add(new ChatItem(row.getString("chatid"), row.getString("user2"), 
-	            			row.getString("user1"), row.getString("dealid"), row.getString("dealdescription"), 
-	            			row.getString("date"), row.getString("storeid"), row.getString("picture")));
-	            }
-	            
-	        }
-	 
-	        // fill in the grid_item layout
-	        ChatAdapter adapter = new ChatAdapter(context, R.layout.chats_list , fillMaps);
-	        mainList.setAdapter(adapter);
+			for(int i = 0; i <  chats.length(); i++){
+				JSONObject row = chats.getJSONObject(i);
+				if (myName.equals(row.getString("user1"))) {
+					fillMaps.add(new ChatItem(row.getString("chatid"), row.getString("user1"), 
+							row.getString("user2"), row.getString("dealid"), row.getString("dealdescription"), 
+							row.getString("date"), row.getString("storeid"), row.getString("picture")));
+				}
+				else {
+					fillMaps.add(new ChatItem(row.getString("chatid"), row.getString("user2"), 
+							row.getString("user1"), row.getString("dealid"), row.getString("dealdescription"), 
+							row.getString("date"), row.getString("storeid"), row.getString("picture")));
+				}
+			}
+
+			// fill in the grid_item layout
+			ChatAdapter adapter = new ChatAdapter(context, R.layout.chats_list , fillMaps);
+			mainList.setAdapter(adapter);
 			/*
 			 *  On click
 			 */
@@ -112,15 +119,14 @@ public class ChatHistory extends Activity implements ServerAsyncParent{
 
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-						ChatItem row = (ChatItem) mainList.getItemAtPosition(position);
-						String chatid = row.getChatid();
-						
-						Intent intent = new Intent(context, ChatAfterMatch.class);
-						
-						Bundle chat = new Bundle();
-						chat.putString("chatid", chatid);
-						intent.putExtras(chat);
-						startActivity(intent);
+					ChatItem row = (ChatItem) mainList.getItemAtPosition(position);
+					String chatid = row.getChatid();
+
+					Intent intent = new Intent(context, ChatAfterMatch.class);
+					Bundle chat = new Bundle();
+					chat.putString("chatid", chatid);
+					intent.putExtras(chat);
+					startActivity(intent);
 				}
 			});
 
@@ -153,9 +159,10 @@ public class ChatHistory extends Activity implements ServerAsyncParent{
 				Log.i("@string/app_name", "This device is not supported.");
 				finish();
 			}
+			
 			return false;
 		}
+		
 		return true;
 	}
-
 }
