@@ -4,12 +4,11 @@
     android:versionCode="2"
     android:versionName="1.1" >
 
-    
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <permission
@@ -27,9 +26,8 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
-        <uses-library android:name="com.google.android.maps" />  
-        
+        <uses-library android:name="com.google.android.maps" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -49,8 +47,8 @@
 
         <activity
             android:name=".SplashScreen"
-            android:label="@string/app_name" 
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -93,6 +91,34 @@
         <activity
             android:name=".LoginPage"
             android:label="@string/title_activity_splash_screen" >
+        </activity>
+        <activity
+            android:name=".MatchDetails"
+            android:label="@string/title_activity_match_details" >
+        </activity>
+        <activity
+            android:name="matchDetailPack.MainMatchDetail"
+            android:label="@string/title_activity_main_match_detail" >
+        </activity>
+        <activity
+            android:name="matchDetailPack.Page1Fragment"
+            android:label="@string/title_activity_page1_fragment" >
+        </activity>
+        <activity
+            android:name="matchDetailPack.Page2Fragment"
+            android:label="@string/title_activity_page2_fragment" >
+        </activity>
+        <activity
+            android:name="matchDetailPack.MercuryActivity"
+            android:label="@string/title_activity_mercury" >
+        </activity>
+        <activity
+            android:name=".NewChatScreen"
+            android:label="@string/title_activity_new_chat_screen" >
+        </activity>
+        <activity
+            android:name=".MatchSummary"
+            android:label="@string/title_activity_match_summary" >
         </activity>
     </application>
 

@@ -40,7 +40,8 @@ public class FindMeMatch extends Activity implements OnClickListener, ServerAsyn
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_find_me_match);
-		
+
+	
 		// Menu bar coloring
 		ActionBar bar = getActionBar();
 		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#73bd90")));
@@ -62,7 +63,7 @@ public class FindMeMatch extends Activity implements OnClickListener, ServerAsyn
 		fillMaps.add(deal);
 
 		// Get the ListView by Id and instantiate the adapter with
-		// cars data and then set it the ListView
+		//  data and then set it the ListView
 		ListView dealList = (ListView) findViewById(R.id.dealList);
 		ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps);
 		dealList.setAdapter(adapter);

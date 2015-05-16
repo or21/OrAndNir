@@ -161,4 +161,3 @@ public class ChatAfterMatch extends Activity implements ServerAsyncParent {
 		}
 	}
 }
-

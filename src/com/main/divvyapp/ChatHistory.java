@@ -116,6 +116,8 @@ public class ChatHistory extends Activity implements ServerAsyncParent{
 						String chatid = row.getChatid();
 						
 						Intent intent = new Intent(context, ChatAfterMatch.class);
+//						Intent intent = new Intent(context, NewChatScreen.class);
+
 						
 						Bundle chat = new Bundle();
 						chat.putString("chatid", chatid);
