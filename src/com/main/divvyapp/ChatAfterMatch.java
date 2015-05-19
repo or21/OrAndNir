@@ -52,9 +52,13 @@ public class ChatAfterMatch extends Activity implements ServerAsyncParent {
 		Bundle extras = getIntent().getExtras();
 
 		pref = getSharedPreferences(LoginPage.class.getSimpleName(), MODE_PRIVATE);
-		chatid = extras.getString("chatid");
 		claimedBy = extras.getString("claimedBy");
 		uid = extras.getString("uid");
+		String claimer = claimedBy.substring(0, claimedBy.indexOf("-"));
+		String completer = uid.substring(0, uid.indexOf("-"));
+
+		chatid = completer + claimer;
+
 		me = pref.getString("uid", "error");
 		mainList = (ListView) findViewById(R.id.mainChatList);
 
