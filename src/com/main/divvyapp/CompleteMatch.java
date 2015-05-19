@@ -79,7 +79,7 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 		fillMaps.add(deal);
 
 		ListView dealList = (ListView) findViewById(R.id.complete_dealList);
-		ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps);
+		ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps, R.layout.layout_list_item);
 		dealList.setAdapter(adapter);
 
 		TextView textAboveCounter = (TextView) findViewById(R.id.textView1);

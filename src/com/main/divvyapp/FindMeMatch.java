@@ -74,7 +74,7 @@ public class FindMeMatch extends Activity implements OnClickListener, ServerAsyn
 
 
 		ListView dealList = (ListView) findViewById(R.id.dealList);
-		ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps);
+		ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps, R.layout.layout_list_item);
 		dealList.setAdapter(adapter);
 
 		Button requestMatch = (Button) findViewById(R.id.claimDeal);

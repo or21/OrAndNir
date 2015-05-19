@@ -54,11 +54,14 @@ public class ChatAfterMatch extends Activity implements ServerAsyncParent {
 		pref = getSharedPreferences(LoginPage.class.getSimpleName(), MODE_PRIVATE);
 		claimedBy = extras.getString("claimedBy");
 		uid = extras.getString("uid");
-		String claimer = claimedBy.substring(0, claimedBy.indexOf("-"));
-		String completer = uid.substring(0, uid.indexOf("-"));
-
-		chatid = completer + claimer;
-
+		chatid = extras.getString("chatid");
+		
+		if (chatid == null) {
+			String claimer = claimedBy.substring(0, claimedBy.indexOf("-"));
+			String completer = uid.substring(0, uid.indexOf("-"));
+			chatid = completer + claimer;
+		}
+		
 		me = pref.getString("uid", "error");
 		mainList = (ListView) findViewById(R.id.mainChatList);
 
@@ -109,8 +112,6 @@ public class ChatAfterMatch extends Activity implements ServerAsyncParent {
 	}
 	
 	public void ChatServer(String uid, String claimedBy, String message, String operation) {
-//		String claimer = claimedBy.substring(0, claimedBy.indexOf("-"));
-//		String completer = uid.substring(0, uid.indexOf("-"));
 
 		// Sending GET request to server
 		if (operation == get) {
