@@ -10,10 +10,11 @@ public class DealObj {
 	private String deadLine;
 	private String dealName;
 	private String city;
+	private String userNameClaimed;
 
 
 	public DealObj(String id, String storeId, String category,
-			String claimedBy, String picture, String deadLine, String dealName, String city) {
+			String claimedBy, String picture, String deadLine, String dealName, String city, String userNameClaimed) {
 		super();
 		this.id = id;
 		this.storeId = storeId;
@@ -23,6 +24,7 @@ public class DealObj {
 		this.deadLine = deadLine;
 		this.dealName = dealName;
 		this.city = city;
+		this.userNameClaimed = userNameClaimed;
 
 	}
 
@@ -84,5 +86,13 @@ public class DealObj {
 	
 	public String getCity() {
 		return city;
+	}
+
+	public String getUserNameClaimed() {
+		return userNameClaimed;
+	}
+
+	public void setUserNameClaimed(String userNameClaimed) {
+		this.userNameClaimed = userNameClaimed;
 	}
 }

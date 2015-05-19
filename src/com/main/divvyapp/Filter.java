@@ -65,13 +65,20 @@ public class Filter extends Activity {
 		listview.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent(context, StorePage.class);
 				intent.putExtra("filter", categories[position]);
 				startActivity(intent);
+				finish();
 			}
 		});
+	}
 
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(context, StorePage.class);
+		intent.putExtra("filter", "all");
+		startActivity(intent);
+		finish();
 	}
 }

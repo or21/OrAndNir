@@ -1,6 +1,5 @@
 package com.main.divvyapp;
 
-
 import helpeMethods.DealObj;
 import helpeMethods.ListDealsAdapter;
 
@@ -44,8 +43,9 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 	private String picture;
 	private String dealName;
 	private String city;
-	ProgressDialog dialog;
+	private ProgressDialog dialog;
 	private String chatid;
+	private String userNameClaimed;
 
 	final static String msg = "Click here to Divvy it up";
 
@@ -53,17 +53,17 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_complete_match);
-		
+
 		// Menu bar coloring
 		ActionBar bar = getActionBar();
 		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#71bd90")));
 		bar.setTitle("");
-		
+
 		context = getApplicationContext();
 		dialog = new ProgressDialog(this);
 		pref = getSharedPreferences(LoginPage.class.getSimpleName(), MODE_PRIVATE);
 		uid = pref.getString("uid", "error");
-		
+
 		dealId = getIntent().getExtras().getString("dealid");
 		deadLine = getIntent().getExtras().getString("deadLine");
 		claimedBy = getIntent().getExtras().getString("claimedBy");
@@ -72,37 +72,41 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 		picture = getIntent().getExtras().getString("picture");
 		dealName = getIntent().getExtras().getString("dealName");
 		city = getIntent().getExtras().getString("city");
+		userNameClaimed = getIntent().getExtras().getString("userNameClaimed");
 
 		final ArrayList<DealObj> fillMaps = new ArrayList<DealObj>();
-		DealObj deal = new DealObj(dealId, storeId, category, claimedBy, picture, deadLine, dealName,city);
+		final DealObj deal = new DealObj(dealId, storeId, category, claimedBy, picture, deadLine, dealName, city, userNameClaimed);
 		fillMaps.add(deal);
 
-		// Get the ListView by Id and instantiate the adapter with
-		// cars data and then set it the ListView
 		ListView dealList = (ListView) findViewById(R.id.complete_dealList);
 		ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps);
 		dealList.setAdapter(adapter);
+
+		TextView textAboveCounter = (TextView) findViewById(R.id.textView1);
+		textAboveCounter.setText("\u200E" + deal.getUserNameClaimed() + " will leave the mall in: ");
 
 		int miliDeadLine = calcMili(deadLine);
 
 		// if the deal is finishing right now giving the option to return to DealsPage
 		if (miliDeadLine <= 600) {
 			countdown = (TextView) findViewById(R.id.countdown);
-			countdown.setText("Uh-Oh UserName left!");
+			countdown.setText("Uh-Oh " + deal.getUserNameClaimed() + " left!");
+
 			Button completeMatch = (Button) findViewById(R.id.completeDeal);
 			completeMatch.setText("Back to Deals");
 			completeMatch.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(context, StorePage.class);
 					intent.putExtra("filter", "all");
+					sendClearDealUpadte(v);
 					startActivity(intent);
 					finish();
 				}
 			});
 
-		// otherwise - start the countDown
+			// otherwise - start the countDown
 		} else {
 			// launching the countDown
 			CountDownTimer cT =  new CountDownTimer(miliDeadLine, 1000) {
@@ -116,7 +120,20 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 				}
 
 				public void onFinish() {
-					countdown.setText("Uh-Oh UserName left!");
+					countdown.setText("Uh-Oh " + deal.getUserNameClaimed() + " left!");
+					Button completeMatch = (Button) findViewById(R.id.completeDeal);
+					completeMatch.setText("Back to Deals");
+					completeMatch.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							Intent intent = new Intent(context, StorePage.class);
+							intent.putExtra("filter", "all");
+							sendClearDealUpadte(v);
+							startActivity(intent);
+							finish();
+						}
+					});
 				}
 			};
 			cT.start();
@@ -124,7 +141,7 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 			// performing match - sets the claimedBy and deadLine fields in DB to 0
 			Button completeMatch = (Button) findViewById(R.id.completeDeal);
 			completeMatch.setOnClickListener(new OnClickListener() {
-				
+
 				@Override
 				public void onClick(View v) {
 					if (claimedBy.equals(uid)) {
@@ -149,7 +166,7 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 		String completer = uid.substring(0, uid.indexOf("-"));
 		String newMsg = msg + "chatid:" + uid;
 		chatid = completer + claimer;
-		
+
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("deadLine", null));
 		params.add(new BasicNameValuePair("dealid",dealId));
@@ -161,27 +178,47 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 		new DataTransfer(this, params, DataTransfer.METHOD_POST).execute("http://nir.milab.idc.ac.il/php/milab_send_deal_update.php");
 	}
 
+	public void sendClearDealUpadte(View v) {
+		chatid = "clear";
+		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("deadLine", null));
+		params.add(new BasicNameValuePair("dealid",dealId));
+		params.add(new BasicNameValuePair("uidNew", null));
+		params.add(new BasicNameValuePair("chatid", chatid));
+		params.add(new BasicNameValuePair("uid", ""));
+		new DataTransfer(this, params, DataTransfer.METHOD_POST).execute("http://nir.milab.idc.ac.il/php/milab_send_deal_update.php");
+	}
+
 	// This should change to class that will make the match by send phone number or anything like this
 	@Override
 	public void doOnPostExecute(JSONObject jObj) {
-		Intent intent = new Intent(this, ChatAfterMatch.class);
-		
-		Bundle extras = new Bundle();
-		extras.putString("claimedBy", claimedBy);
-		extras.putString("uid", uid);
-		extras.putString("chatid", chatid);
-		
-		intent.putExtras(extras);
-		startActivity(intent);
+		if (!chatid.equals("clear")) {
+			Intent intent = new Intent(this, MatchSummary.class);
+
+			Bundle extras = new Bundle();
+			extras.putString("claimedBy", claimedBy);
+			extras.putString("uid", uid);
+			extras.putString("chatid", chatid);
+			extras.putString("dealName", dealName);
+			extras.putString("storeId", storeId);
+			extras.putString("category", category);
+			extras.putString("picture", picture);
+			extras.putString("dealId", dealId);
+			extras.putString("userNameClaimed", userNameClaimed);
+			extras.putString("city", city);
+
+			intent.putExtras(extras);
+			startActivity(intent);
+		}
 		finish();
 	}
-	
+
 	// returns the difference between current time given string (format HH:MM) in milliseconds 
-	private int calcMili(String timeToCalc) {
-		
+	public static int calcMili(String timeToCalc) {
+
 		// divides the time to hours and minutes
-		final int hour = Integer.parseInt((String) deadLine.subSequence(0, deadLine.indexOf(':')));
-		final int minutes = Integer.parseInt((String) deadLine.subSequence(deadLine.indexOf(':') + 1, deadLine.length()));
+		final int hour = Integer.parseInt((String) timeToCalc.subSequence(0, timeToCalc.indexOf(':')));
+		final int minutes = Integer.parseInt((String) timeToCalc.subSequence(timeToCalc.indexOf(':') + 1, timeToCalc.length()));
 
 		// Gets the time from the device and calculates the difference
 		Calendar c = Calendar.getInstance(); 

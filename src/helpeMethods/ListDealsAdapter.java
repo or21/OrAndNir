@@ -69,7 +69,7 @@ public class ListDealsAdapter extends BaseAdapter {
 		holder.category.setText(deal.getCategory());
 
 		if (deal.getClaimedBy().length() > 15) {
-			holder.claimedBy.setText("Pending | " + "USERNAME");
+			holder.claimedBy.setText("Pending | " + deal.getUserNameClaimed());
 		} else {
 			holder.claimedBy.setText("");
 		}
