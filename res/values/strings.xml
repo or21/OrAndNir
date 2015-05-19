@@ -36,6 +36,13 @@
     <string name="date">Date</string>
     <string name="deal_description">Deal Description</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
-    <string name = "Find_by_location">Find by location</string>
+    <string name="Find_by_location">Find by location</string>
+    <string name="title_activity_match_details">MatchDetails</string>
+    <string name="title_activity_main_match_detail">MainMatchDetail</string>
+    <string name="title_activity_page1_fragment">Page1Fragment</string>
+    <string name="title_activity_page2_fragment">Page2Fragment</string>
+    <string name="title_activity_mercury">MercuryActivity</string>
+    <string name="title_activity_new_chat_screen">NewChatScreen</string>
+    <string name="title_activity_match_summary">MatchSummary</string>
 
 </resources>

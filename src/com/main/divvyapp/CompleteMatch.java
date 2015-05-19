@@ -193,12 +193,19 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 	@Override
 	public void doOnPostExecute(JSONObject jObj) {
 		if (!chatid.equals("clear")) {
-			Intent intent = new Intent(this, ChatAfterMatch.class);
+			Intent intent = new Intent(this, MatchSummary.class);
 
 			Bundle extras = new Bundle();
 			extras.putString("claimedBy", claimedBy);
 			extras.putString("uid", uid);
 			extras.putString("chatid", chatid);
+			extras.putString("dealName", dealName);
+			extras.putString("storeId", storeId);
+			extras.putString("category", category);
+			extras.putString("picture", picture);
+			extras.putString("dealId", dealId);
+			extras.putString("userNameClaimed", userNameClaimed);
+			extras.putString("city", city);
 
 			intent.putExtras(extras);
 			startActivity(intent);

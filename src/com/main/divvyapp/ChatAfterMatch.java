@@ -43,14 +43,14 @@ public class ChatAfterMatch extends Activity implements ServerAsyncParent {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_chat_after_match);
-
+		
 		// Menu bar coloring
 		ActionBar bar = getActionBar();
 		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#71bd90")));
 		bar.setTitle("Deal In Motion");
-
+		
 		Bundle extras = getIntent().getExtras();
-
+		
 		pref = getSharedPreferences(LoginPage.class.getSimpleName(), MODE_PRIVATE);
 		claimedBy = extras.getString("claimedBy");
 		uid = extras.getString("uid");
@@ -76,9 +76,10 @@ public class ChatAfterMatch extends Activity implements ServerAsyncParent {
 				chatWindow.setText("");
 			}
 		});
-
+		
 		// This thread refreshing chat view every 3 seconds
 		t = new Thread() {
+
 			@Override
 			public void run() {
 				try {
@@ -98,18 +99,18 @@ public class ChatAfterMatch extends Activity implements ServerAsyncParent {
 		};
 		t.start();
 	}
-
+	
 	@Override
 	public void onPause() {
-		super.onPause();  // Always call the superclass
-
-		// stops the threads that created
-		t.interrupt();
+	    super.onPause();  // Always call the superclass
+	    
+	    // stops the threads that created
+	    t.interrupt();
 	}
-
+	
 	public void ChatServer(String uid, String claimedBy, String message, String operation) {
-		//		String claimer = claimedBy.substring(0, claimedBy.indexOf("-"));
-		//		String completer = uid.substring(0, uid.indexOf("-"));
+//		String claimer = claimedBy.substring(0, claimedBy.indexOf("-"));
+//		String completer = uid.substring(0, uid.indexOf("-"));
 
 		// Sending GET request to server
 		if (operation == get) {
@@ -144,7 +145,7 @@ public class ChatAfterMatch extends Activity implements ServerAsyncParent {
 			// fill in the grid_item layout
 			SimpleAdapter adapter = new SimpleAdapter(this, fillMaps, R.layout.chat_list, from, to);
 			mainList.setAdapter(adapter);
-
+			
 			// this will show the last item in the list
 			mainList.setSelection(mainList.getCount() - 1);
 
@@ -164,4 +165,3 @@ public class ChatAfterMatch extends Activity implements ServerAsyncParent {
 		}
 	}
 }
-

@@ -119,14 +119,17 @@ public class ChatHistory extends Activity implements ServerAsyncParent{
 
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-					ChatItem row = (ChatItem) mainList.getItemAtPosition(position);
-					String chatid = row.getChatid();
+						ChatItem row = (ChatItem) mainList.getItemAtPosition(position);
+						String chatid = row.getChatid();
+						
+						Intent intent = new Intent(context, ChatAfterMatch.class);
+//						Intent intent = new Intent(context, NewChatScreen.class);
 
-					Intent intent = new Intent(context, ChatAfterMatch.class);
-					Bundle chat = new Bundle();
-					chat.putString("chatid", chatid);
-					intent.putExtras(chat);
-					startActivity(intent);
+						
+						Bundle chat = new Bundle();
+						chat.putString("chatid", chatid);
+						intent.putExtras(chat);
+						startActivity(intent);
 				}
 			});
 
