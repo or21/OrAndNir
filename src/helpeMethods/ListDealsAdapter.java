@@ -69,12 +69,13 @@ public class ListDealsAdapter extends BaseAdapter {
 		holder.storId.setText(deal.getStoreId());
 		holder.category.setText(deal.getCategory());
 
-		if (deal.getClaimedBy().length() > 15) {
+		if (deal.getClaimedBy().length() > 24) {
 			holder.claimedBy.setText("Pending | " + deal.getUserNameClaimed());
 		} 
-		else if (!deal.getClaimedBy().isEmpty()) {
+		else if (deal.getClaimedBy().length() >= 1 && !deal.getUserNameClaimed().equals("null")) {
 			holder.claimedBy.setText(deal.getUserNameClaimed().toString());
-		} else {
+		} 
+		else {
 			holder.claimedBy.setText("");
 		}
 

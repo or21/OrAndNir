@@ -240,7 +240,7 @@ public class StorePage extends Activity implements ServerAsyncParent{
 	@Override
 	public void onBackPressed() {
 		if (filter.equals("all")) {
-			new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+			new AlertDialog.Builder(this).setIcon(android.R.drawable.stat_sys_warning).setTitle("Exit")
 			.setMessage("Are you sure you want to exit?")
 			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 				@Override
