@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top"
     tools:context="${relativePackage}.${activityClass}" >
 
     <ListView
@@ -36,6 +37,8 @@
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLargeInverse"
         android:textColor="#71bd90" />
+    
+
 
     <TextView
         android:id="@+id/textView1"
@@ -47,4 +50,33 @@
         android:text="with"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    
+    <helpeMethods.ClockObject
+        android:id="@+id/countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+<!--  
+
+    <TextView
+        android:id="@+id/In"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/countdown"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="34dp"
+        android:text="In"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+            <TextView
+        android:id="@+id/countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/summary"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="170dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Large Text"
+        android:textColor="#71bd90"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+-->
 </RelativeLayout>

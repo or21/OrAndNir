@@ -206,6 +206,9 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 			extras.putString("dealId", dealId);
 			extras.putString("userNameClaimed", userNameClaimed);
 			extras.putString("city", city);
+			extras.putString("dealId", dealId);
+			extras.putString("deadLine", deadLine);
+
 
 			intent.putExtras(extras);
 			startActivity(intent);
