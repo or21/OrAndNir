@@ -16,7 +16,6 @@ import serverComunication.ServerAsyncParent;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -75,7 +74,7 @@ public class FindMeMatch extends Activity implements OnClickListener, ServerAsyn
 
 
 		ListView dealList = (ListView) findViewById(R.id.dealList);
-		ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps);
+		ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps, R.layout.layout_list_item);
 		dealList.setAdapter(adapter);
 
 		Button requestMatch = (Button) findViewById(R.id.claimDeal);
@@ -112,9 +111,6 @@ public class FindMeMatch extends Activity implements OnClickListener, ServerAsyn
 
 	@Override
 	public void doOnPostExecute(JSONObject jObj) {
-		Intent intent = new Intent(this, StorePage.class);
-		intent.putExtra("filter", "all");
-		startActivity(intent);
 		finish();
 	}
 }

@@ -17,16 +17,17 @@ public class ListDealsAdapter extends BaseAdapter {
 
 	final static String SERVER = "http://nir.milab.idc.ac.il/pictures/";
 
-	
 	private Context context;
 	protected List<DealObj> listDeals;
 	private LayoutInflater inflater;
+	int resource;
 
 	// Constructor
-	public ListDealsAdapter(Context context, List<DealObj> listDeals) {
+	public ListDealsAdapter(Context context, List<DealObj> listDeals, int resource) {
 		this.listDeals = listDeals;
 		this.inflater = LayoutInflater.from(context);
 		this.context = context;
+		this.resource = resource;
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class ListDealsAdapter extends BaseAdapter {
 		if (convertView == null) {
 
 			holder = new ViewHolder();
-			convertView = this.inflater.inflate(R.layout.layout_list_item, parent, false);
+			convertView = this.inflater.inflate(resource, parent, false);
 
 			holder.dealName = (TextView) convertView.findViewById(R.id.txt_dealName);
 			holder.storId = (TextView) convertView.findViewById(R.id.txt_storeid);
@@ -68,9 +69,13 @@ public class ListDealsAdapter extends BaseAdapter {
 		holder.storId.setText(deal.getStoreId());
 		holder.category.setText(deal.getCategory());
 
-		if (deal.getClaimedBy().length() > 15) {
+		if (deal.getClaimedBy().length() > 24) {
 			holder.claimedBy.setText("Pending | " + deal.getUserNameClaimed());
-		} else {
+		} 
+		else if (deal.getClaimedBy().length() >= 1 && !deal.getUserNameClaimed().equals("null")) {
+			holder.claimedBy.setText(deal.getUserNameClaimed().toString());
+		} 
+		else {
 			holder.claimedBy.setText("");
 		}
 

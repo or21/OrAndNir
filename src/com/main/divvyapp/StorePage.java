@@ -197,7 +197,7 @@ public class StorePage extends Activity implements ServerAsyncParent{
 				view.setBackground(new ColorDrawable(Color.parseColor("#71bd90")));
 				toast.show();
 			}
-			ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps);
+			ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps, R.layout.layout_list_item);
 			dealList.setAdapter(adapter);
 			dealList.setClickable(true);
 			dealList.setOnItemClickListener(new OnItemClickListener() {
@@ -231,7 +231,7 @@ public class StorePage extends Activity implements ServerAsyncParent{
 					}
 				}
 			});
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -239,15 +239,22 @@ public class StorePage extends Activity implements ServerAsyncParent{
 
 	@Override
 	public void onBackPressed() {
-		new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
-		.setMessage("Are you sure you want to exit?")
-		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				finish();
-				System.exit(0);
-			}
-		}).setNegativeButton("No", null).show();
+		if (filter.equals("all")) {
+			new AlertDialog.Builder(this).setIcon(android.R.drawable.stat_sys_warning).setTitle("Exit")
+			.setMessage("Are you sure you want to exit?")
+			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					finish();
+					System.exit(0);
+				}
+			}).setNegativeButton("No", null).show();
+		} 
+		else {
+			Intent intent = new Intent(context, Filter.class);
+			startActivity(intent);
+			finish();
+		}
 	}
 
 	public void doOnPostExecute(JSONObject jObj) {

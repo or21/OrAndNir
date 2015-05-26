@@ -226,7 +226,7 @@ public class LoginPage extends Activity implements OnClickListener , ServerAsync
 			Log.i(TAG, "App version changed.");
 			return "";
 		}
-		
+
 		return registrationId;
 	}
 
@@ -266,7 +266,7 @@ public class LoginPage extends Activity implements OnClickListener , ServerAsync
 					// Require the user to click a button again, or perform
 					// exponential back-off.
 				}
-				
+
 				return msg;
 			}
 

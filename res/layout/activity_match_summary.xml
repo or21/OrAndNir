@@ -1,14 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="top"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context="${relativePackage}.${activityClass}" >
 
     <ListView
         android:id="@+id/summary"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="260dp"
         android:layout_alignParentTop="true"
         android:divider="@null"
         android:paddingTop="10dp" >
@@ -19,64 +18,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
         android:background="#71bd90"
         android:fontFamily="sans-serif"
-        android:text="Click To Chat"
+        android:text="@+string/transferToChat"
         android:textColor="#ffffff" />
 
-    <TextView
-        android:id="@+id/otherUser"
+
+    <include
+        android:id="@+id/clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/summary"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLargeInverse"
-        android:textColor="#71bd90" />
-    
+        android:layout_marginTop="320dp"
+        layout="@layout/clock" />
 
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/summary"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:text="with"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    
-    <helpeMethods.ClockObject
-        android:id="@+id/countdown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-<!--  
-
-    <TextView
-        android:id="@+id/In"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/countdown"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="34dp"
-        android:text="In"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-        
-            <TextView
-        android:id="@+id/countdown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/summary"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="170dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="Large Text"
-        android:textColor="#71bd90"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
--->
 </RelativeLayout>

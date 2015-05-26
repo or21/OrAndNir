@@ -1,52 +1,39 @@
 package com.main.divvyapp;
 
+import helpeMethods.ClockObject;
 import helpeMethods.DealObj;
 import helpeMethods.ListDealsAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
-
-import serverComunication.DataTransfer;
-import serverComunication.ServerAsyncParent;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MatchSummary extends Activity implements OnClickListener{
+public class MatchSummary extends Activity implements OnClickListener {
 	
-	private Context context;
-	private SharedPreferences pref;
 	private String claimedBy;
 	private String uid;
 	private String chatid;
-	private String dealName;
 	private String deadLine;
+	private String dealName;
 	private String storeId;
 	private String category;
 	private String picture;
 	private String dealId;
 	private String userNameClaimed;
 	private String city;
-	private String otherUser;
-	private TextView countdown;
+	private ClockObject clockObj;
 
 	
 	@Override
@@ -57,112 +44,93 @@ public class MatchSummary extends Activity implements OnClickListener{
 		// Menu bar coloring
 		ActionBar bar = getActionBar();
 		bar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#73bd90")));
-		bar.setTitle("Match Summary");
+		bar.setTitle("Deal In Motion");
 		
-		dealId = getIntent().getExtras().getString("dealId");
-		pref = getSharedPreferences(LoginPage.class.getSimpleName(), MODE_PRIVATE);
+		deadLine = getIntent().getExtras().getString("deadLine");
 		storeId = getIntent().getExtras().getString("storeId");
 		category = getIntent().getExtras().getString("category");
 		picture = getIntent().getExtras().getString("picture");
 		dealName = getIntent().getExtras().getString("dealName");
 		userNameClaimed = getIntent().getExtras().getString("userNameClaimed");
 		chatid = getIntent().getExtras().getString("chatid");
-		uid = getIntent().getExtras().getString("uid");
-		context = getApplicationContext();
-		deadLine = getIntent().getExtras().getString("deadLine");
-
 		
 		final ArrayList<DealObj> fillMaps = new ArrayList<DealObj>();
-		final DealObj deal = new DealObj(dealId, storeId, category, "0", picture, "0", dealName, city, userNameClaimed);
+		DealObj deal = new DealObj(dealId, storeId, category, "0", picture, "0", dealName, city, userNameClaimed);
 		fillMaps.add(deal);
 
-
 		ListView dealList = (ListView) findViewById(R.id.summary);
-		ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps);
+		ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps, R.layout.in_motion_layout);
 		dealList.setAdapter(adapter);
 		
 		Button clickToChat = (Button) findViewById(R.id.ClickToChat);
 		clickToChat.setOnClickListener(this);
 		
-		TextView userName = (TextView) findViewById(R.id.otherUser);
-		userName.setText(userNameClaimed);
+		clockObj = (ClockObject) findViewById(R.id.clock);
 		
-		int miliDeadLine = CompleteMatch.calcMili(deadLine);
+		int miliDeadLine = calcMili(deadLine);
 
-		// if the deal is finishing right now giving the option to return to DealsPage
-				if (miliDeadLine <= 600) {
-					countdown = (TextView) findViewById(R.id.countdown);
-					Typeface type = Typeface.createFromAsset(getAssets(),"fonts/AGENCY-FB.ttf"); 
-					countdown.setTypeface(type);
+		CountDownTimer cT =  new CountDownTimer(miliDeadLine, 1000) {
 
-					countdown.setText("Uh-Oh " + deal.getUserNameClaimed() + " left!");
+			public void onTick(long millisUntilFinished) {
+				int vh = (int)( (millisUntilFinished / (1000*60*60)) % 24);
+				int vm = (int)( (millisUntilFinished / 60000) % 60);
+				int vs = (int)( (millisUntilFinished / 1000) % 60);
+				clockObj.timeSetter(String.format("%02d",vh)+":"+String.format("%02d",vm)+":"+String.format("%02d",vs));
+			}
 
-					Button completeMatch = (Button) findViewById(R.id.completeDeal);
-					completeMatch.setText("Back to Deals");
-					completeMatch.setOnClickListener(new OnClickListener() {
+			public void onFinish() {
+//				Button completeMatch = (Button) findViewById(R.id.completeDeal);
+//				completeMatch.setText("Back to Deals");
 
-						@Override
-						public void onClick(View v) {
-							Intent intent = new Intent(context, StorePage.class);
-							intent.putExtra("filter", "all");
-							startActivity(intent);
-							finish();
-						}
-					});
+			}
+		};
+		cT.start();
 
-					// otherwise - start the countDown
-				} else {
-					// launching the countDown
-					CountDownTimer cT =  new CountDownTimer(miliDeadLine, 1000) {
-
-						public void onTick(long millisUntilFinished) {
-							countdown = (TextView) findViewById(R.id.countdown);
-							int vh = (int)( (millisUntilFinished / (1000*60*60)) % 24);
-							int vm = (int)( (millisUntilFinished / 60000) % 60);
-							int vs = (int)( (millisUntilFinished / 1000) % 60);
-							String format = String.format("%02d",vh)+":"+String.format("%02d",vm);
-							countdown.setText(String.format("%02d",vh)+":"+String.format("%02d",vm));
-						}
-
-						public void onFinish() {
-							countdown.setText("Uh-Oh " + deal.getUserNameClaimed() + " left!");
-							Button completeMatch = (Button) findViewById(R.id.completeDeal);
-							completeMatch.setText("Back to Deals");
-							completeMatch.setOnClickListener(new OnClickListener() {
-
-								@Override
-								public void onClick(View v) {
-									Intent intent = new Intent(context, StorePage.class);
-									intent.putExtra("filter", "all");
-									startActivity(intent);
-									finish();
-								}
-							});
-						}
-					};
-					cT.start();
-		
-				}
+//		TextView userName = (TextView) findViewById(R.id.txt_claimedBy);
+//		userName.setText(userNameClaimed);
+		// TODO: Add timer here
 	}
 	
 	public void onClick(View v) {
 		if (!chatid.equals("clear")) {
 			Intent intent = new Intent(this, ChatAfterMatch.class);
-
 			Bundle extras = new Bundle();
 			extras.putString("claimedBy", claimedBy);
 			extras.putString("uid", uid);
 			extras.putString("chatid", chatid);
-
 
 			intent.putExtras(extras);
 			startActivity(intent);
 		}
 		finish();
 	}
-
-
 	
+	// returns the difference between current time given string (format HH:MM) in milliseconds 
+	public static int calcMili(String timeToCalc) {
 
+		// divides the time to hours and minutes
+		final int hour = Integer.parseInt((String) timeToCalc.subSequence(0, timeToCalc.indexOf(':')));
+		final int minutes = Integer.parseInt((String) timeToCalc.subSequence(timeToCalc.indexOf(':') + 1, timeToCalc.length()));
 
+		// Gets the time from the device and calculates the difference
+		Calendar c = Calendar.getInstance(); 
+
+		int diffhour = (int) (hour - c.get(Calendar.HOUR_OF_DAY)) ;
+		int diffminute = (int) (minutes - c.get(Calendar.MINUTE));
+
+		// taking care of time calculations
+		if (diffhour < 0) {
+			diffhour = diffhour + 24;
+		}
+
+		if (diffminute < 0) {
+			diffhour--;
+			diffminute = diffminute + 60;
+		}
+
+		// sums the difference from dead line and convert to milliseconds
+		return (diffhour * 3600000) + (diffminute * 60000);
+	}
+	
+	
 }

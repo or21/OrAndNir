@@ -1,5 +1,6 @@
 package com.main.divvyapp;
 
+import helpeMethods.ClockObject;
 import helpeMethods.DealObj;
 import helpeMethods.ListDealsAdapter;
 
@@ -46,6 +47,7 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 	private ProgressDialog dialog;
 	private String chatid;
 	private String userNameClaimed;
+	private ClockObject clockObj;
 
 	final static String msg = "Click here to Divvy it up";
 
@@ -79,11 +81,13 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 		fillMaps.add(deal);
 
 		ListView dealList = (ListView) findViewById(R.id.complete_dealList);
-		ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps);
+		ListDealsAdapter adapter = new ListDealsAdapter(this, fillMaps, R.layout.layout_list_item);
 		dealList.setAdapter(adapter);
 
 		TextView textAboveCounter = (TextView) findViewById(R.id.textView1);
 		textAboveCounter.setText("\u200E" + deal.getUserNameClaimed() + " will leave the mall in: ");
+		
+		clockObj = (ClockObject) findViewById(R.id.clock);
 
 		int miliDeadLine = calcMili(deadLine);
 
@@ -117,6 +121,7 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 					int vm = (int)( (millisUntilFinished / 60000) % 60);
 					int vs = (int)( (millisUntilFinished / 1000) % 60);
 					countdown.setText(String.format("%02d",vh)+":"+String.format("%02d",vm)+":"+String.format("%02d",vs));
+					clockObj.timeSetter(String.format("%02d",vh)+":"+String.format("%02d",vm)+":"+String.format("%02d",vs));
 				}
 
 				public void onFinish() {

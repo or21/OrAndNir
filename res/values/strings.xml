@@ -44,5 +44,10 @@
     <string name="title_activity_mercury">MercuryActivity</string>
     <string name="title_activity_new_chat_screen">NewChatScreen</string>
     <string name="title_activity_match_summary">MatchSummary</string>
+    <string name="with">With</string>
+    <string name="transferToChat">Click To Chat</string>
+    <string name="what">What</string>
+    <string name="where">Where</string>
+    <string name="in">In</string>
 
 </resources>
