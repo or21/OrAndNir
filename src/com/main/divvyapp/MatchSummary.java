@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class MatchSummary extends Activity implements OnClickListener {
 	
@@ -35,7 +34,6 @@ public class MatchSummary extends Activity implements OnClickListener {
 	private String city;
 	private ClockObject clockObj;
 
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

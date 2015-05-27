@@ -35,7 +35,7 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 	private Context context;
 	private String dealId;
 	private SharedPreferences pref;
-	private TextView countdown;
+//	private TextView countdown;
 	private String deadLine;
 	private String claimedBy;
 	private String uid;
@@ -93,8 +93,8 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 
 		// if the deal is finishing right now giving the option to return to DealsPage
 		if (miliDeadLine <= 600) {
-			countdown = (TextView) findViewById(R.id.countdown);
-			countdown.setText("Uh-Oh " + deal.getUserNameClaimed() + " left!");
+//			countdown = (TextView) findViewById(R.id.countdown);
+//			countdown.setText("Uh-Oh " + deal.getUserNameClaimed() + " left!");
 
 			Button completeMatch = (Button) findViewById(R.id.completeDeal);
 			completeMatch.setText("Back to Deals");
@@ -116,16 +116,16 @@ public class CompleteMatch extends Activity implements ServerAsyncParent {
 			CountDownTimer cT =  new CountDownTimer(miliDeadLine, 1000) {
 
 				public void onTick(long millisUntilFinished) {
-					countdown = (TextView) findViewById(R.id.countdown);
+//					countdown = (TextView) findViewById(R.id.countdown);
 					int vh = (int)( (millisUntilFinished / (1000*60*60)) % 24);
 					int vm = (int)( (millisUntilFinished / 60000) % 60);
 					int vs = (int)( (millisUntilFinished / 1000) % 60);
-					countdown.setText(String.format("%02d",vh)+":"+String.format("%02d",vm)+":"+String.format("%02d",vs));
+//					countdown.setText(String.format("%02d",vh)+":"+String.format("%02d",vm)+":"+String.format("%02d",vs));
 					clockObj.timeSetter(String.format("%02d",vh)+":"+String.format("%02d",vm)+":"+String.format("%02d",vs));
 				}
 
 				public void onFinish() {
-					countdown.setText("Uh-Oh " + deal.getUserNameClaimed() + " left!");
+//					countdown.setText("Uh-Oh " + deal.getUserNameClaimed() + " left!");
 					Button completeMatch = (Button) findViewById(R.id.completeDeal);
 					completeMatch.setText("Back to Deals");
 					completeMatch.setOnClickListener(new OnClickListener() {

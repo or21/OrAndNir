@@ -27,15 +27,43 @@
         android:text="@+string/transferToChat"
         android:textColor="#ffffff" />
 
+    <LinearLayout
+        android:id="@+id/layout_for_clock"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/summary"
+        android:orientation="vertical"  >
 
-    <include
-        android:id="@+id/clock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="320dp"
-        layout="@layout/clock" />
+        <TextView
+            android:id="@+id/in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:text="@+string/in"
+            android:layout_marginLeft="110dp"
+            android:layout_marginStart="110dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#a9aaab"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        
+         <TextView
+            android:id="@+id/seperator1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="110dp"
+            android:layout_marginStart="110dp"
+            android:background="#a9aaab" />
 
-
+        <include
+            android:id="@+id/clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            layout="@layout/clock" />
+    </LinearLayout>
 
 </RelativeLayout>
