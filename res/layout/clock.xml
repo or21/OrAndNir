@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<helpeMethods.ClockObject xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/clock"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="0.15"
+        android:background="#71bd90"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="center"
+        android:textAlignment="gravity"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        android:typeface="monospace" />
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="0.15"
+        android:background="#71bd90"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="center"
+        android:textAlignment="gravity"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        android:typeface="monospace" />
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="0.15"
+        android:background="#D4EBDE"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="center"
+        android:textAlignment="gravity"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        android:typeface="monospace" />
+
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="0.15"
+        android:background="#D4EBDE"
+        android:fontFamily="sans-serif-thin"
+        android:gravity="center"
+        android:textAlignment="gravity"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        android:typeface="monospace" />
+
+</helpeMethods.ClockObject>
